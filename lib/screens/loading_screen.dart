@@ -27,6 +27,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         child: RaisedButton(
           onPressed: () {
             //Get the current location
+            getLocation();
           },
           child: Text('Get Location'),
         ),
