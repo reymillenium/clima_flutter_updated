@@ -73,3 +73,18 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+
+// print(data);
+// double longitude = jsonDecode(data)['coord']['lon'];
+// print('Longitude: $longitude');
+// String description = jsonDecode(data)['weather'][0]['description'];
+// print('Description: $description');
+
+// dynamic decodedData = jsonDecode(data);
+// double temperature = decodedData['main']['temp'];
+// int conditionNumber = decodedData['weather'][0]['id'];
+// String cityName = decodedData['name'];
+
+// print('Temperature: $temperature');
+// print('conditionNumber: $conditionNumber');
+// print('cityName: $cityName');
