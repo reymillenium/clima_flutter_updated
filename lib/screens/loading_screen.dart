@@ -6,6 +6,9 @@ import 'dart:convert';
 // Services:
 import 'package:clima/services/location.dart';
 
+// Constants:
+import 'package:clima/utilities/constants.dart';
+
 Location location = Location();
 
 class LoadingScreen extends StatefulWidget {
@@ -33,8 +36,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getDataByCoordinates({double lat, double long}) async {
-    String appID = '888e3a5d9c71ad9496ae5659aaf9bcc0';
-    String byCoordinatesURL = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&appid=$appID';
+    String byCoordinatesURL = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&appid=$openWeatherApiKey';
     http.Response response = await http.get(byCoordinatesURL);
 
     if (response.statusCode == 200) {
