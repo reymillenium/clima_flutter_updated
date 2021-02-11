@@ -13,7 +13,33 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  // Properties:
+  double temperature;
+  int conditionNumber;
+  String cityName;
+
   @override
+  void initState() {
+    super.initState();
+    updateUI(widget.locationWeatherData);
+  }
+
+  void updateUI(dynamic weatherData) {
+    // double latitude = jsonDecode(data)['coord']['lat'];
+    // double longitude = jsonDecode(data)['coord']['lon'];
+    // String description = jsonDecode(data)['weather'][0]['description'];
+
+    setState(() {
+      temperature = weatherData['main']['temp'];
+      conditionNumber = weatherData['weather'][0]['id'];
+      cityName = weatherData['name'];
+    });
+
+    // print('Temperature: $temperature');
+    // print('conditionNumber: $conditionNumber');
+    // print('cityName: $cityName');
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -67,7 +93,8 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  // "It's 🍦 time in San Francisco!",
+                  "It's 🍦 time in $cityName!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
@@ -79,18 +106,3 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
-
-// print(data);
-// double longitude = jsonDecode(data)['coord']['lon'];
-// print('Longitude: $longitude');
-// String description = jsonDecode(data)['weather'][0]['description'];
-// print('Description: $description');
-
-// dynamic decodedData = jsonDecode(data);
-// double temperature = decodedData['main']['temp'];
-// int conditionNumber = decodedData['weather'][0]['id'];
-// String cityName = decodedData['name'];
-
-// print('Temperature: $temperature');
-// print('conditionNumber: $conditionNumber');
-// print('cityName: $cityName');
