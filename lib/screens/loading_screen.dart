@@ -1,4 +1,5 @@
 // Packages:
+import 'package:clima/services/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
@@ -42,7 +43,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     // Using an animated transition between two screens:
     // Navigator.push(context, _createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
-    Navigator.of(context).push(_createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
+    RoutesHelper routesHelper = RoutesHelper();
+    Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
   }
 
   final spinkit = SpinKitDualRing(
@@ -58,22 +60,4 @@ class _LoadingScreenState extends State<LoadingScreen> {
       child: spinkit,
     ));
   }
-}
-
-Route _createRoute({Widget destiny}) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => destiny,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(0.0, 1.0);
-      var end = Offset.zero;
-      var curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }
