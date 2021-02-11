@@ -6,12 +6,17 @@ import 'dart:convert';
 import 'package:clima/utilities/constants.dart';
 
 class NetworkHelper {
+  // Gets the data given a latitude and a longitude (coordinates):
   Future getDataByCoordinates({double lat, double long}) async {
     String byCoordinatesURL = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&appid=$openWeatherApiKey';
-    http.Response response = await http.get(byCoordinatesURL);
+    return await getData(url: byCoordinatesURL);
+  }
+
+  // Gets the data given a url:
+  Future getData({String url}) async {
+    http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
-      // String data = response.body;
       return jsonDecode(response.body);
     } else {
       print(response.statusCode);
