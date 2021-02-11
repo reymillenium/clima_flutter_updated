@@ -25,6 +25,7 @@ class _LocationScreenState extends State<LocationScreen> {
   double temperature;
   int conditionNumber;
   String cityName;
+  String iconCode;
 
   @override
   void initState() {
@@ -41,6 +42,7 @@ class _LocationScreenState extends State<LocationScreen> {
       temperature = weatherData['main']['temp'];
       conditionNumber = weatherData['weather'][0]['id'];
       cityName = weatherData['name'];
+      iconCode = weatherData['weather'][0]['icon'];
     });
 
     // print('Temperature: $temperature');
@@ -91,11 +93,11 @@ class _LocationScreenState extends State<LocationScreen> {
                       '$temperature °',
                       style: kTempTextStyle,
                     ),
-                    Text(
-                      // '☀️',
-                      weatherHelper.getWeatherIcon(conditionNumber),
-                      style: kConditionTextStyle,
-                    ),
+                    // Text(
+                    //   weatherHelper.getWeatherIcon(conditionNumber),
+                    //   style: kConditionTextStyle,
+                    // ),
+                    Image(image: weatherHelper.getOpenWeatherIcon(iconCode: iconCode))
                   ],
                 ),
               ),

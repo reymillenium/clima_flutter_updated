@@ -1,3 +1,6 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+
 class WeatherModel {
   String getWeatherIcon(int condition) {
     if (condition < 300) {
@@ -29,5 +32,10 @@ class WeatherModel {
     } else {
       return 'Bring a 🧥 just in case';
     }
+  }
+
+  // Gets the proper OpenWeather icon image based on a given icon code:
+  NetworkImage getOpenWeatherIcon({String iconCode}) {
+    return NetworkImage('http://openweathermap.org/img/wn/$iconCode@2x.png');
   }
 }
