@@ -2,6 +2,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+// Services:
+import 'package:clima/services/location.dart';
+import 'package:clima/services/networking.dart';
+
 class WeatherModel {
   String getWeatherIcon(int condition) {
     if (condition < 300) {
@@ -38,5 +42,12 @@ class WeatherModel {
   // Gets an official OpenWeather icon image based on a given icon code:
   NetworkImage getOpenWeatherIcon({String iconCode}) {
     return NetworkImage('http://openweathermap.org/img/wn/$iconCode@2x.png');
+  }
+
+  Future<dynamic> getLocationWeather() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    NetworkHelper network = NetworkHelper();
+    return await network.getDataByCoordinates(lat: location.latitude, long: location.longitude);
   }
 }
