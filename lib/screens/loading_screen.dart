@@ -36,32 +36,24 @@ class _LoadingScreenState extends State<LoadingScreen> {
     }));
   }
 
-  final spinkit = SpinKitFadingCircle(
-    itemBuilder: (BuildContext context, int index) {
-      return DecoratedBox(
-        decoration: BoxDecoration(
-          color: index.isEven ? Colors.red : Colors.green,
-        ),
-      );
-    },
-  );
-
-  // final spinkit = SpinKitSquareCircle(
-  //   color: Colors.white,
-  //   size: 50.0,
-  //   controller: AnimationController(vsync: TickerProvider., duration: const Duration(milliseconds: 1200)),
+  // final spinkit = SpinKitFadingCircle(
+  //   itemBuilder: (BuildContext context, int index) {
+  //     return DecoratedBox(
+  //       decoration: BoxDecoration(
+  //         color: index.isEven ? Colors.red : Colors.green,
+  //       ),
+  //     );
+  //   },
   // );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Container(
-          // margin: EdgeInsets.all(30),
-          color: Colors.black,
-          child: spinkit,
-        ));
+        body: Center(
+      child: SpinKitDoubleBounce(
+        color: Colors.white,
+        size: 100.0,
+      ),
+    ));
   }
 }
