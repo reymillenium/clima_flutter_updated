@@ -1,7 +1,6 @@
 // Packages:
 import 'package:clima/services/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
 // Services:
@@ -10,6 +9,9 @@ import 'package:clima/services/networking.dart';
 
 // Screens:
 import 'package:clima/screens/location_screen.dart';
+
+// Components:
+import 'package:clima/components/transition_spinner.dart';
 
 class LoadingScreen extends StatefulWidget {
   LoadingScreen({Key key, this.title}) : super(key: key);
@@ -35,29 +37,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     // Adds an additional delay so we show a little more of the spinner:
     // await Future.delayed(const Duration(milliseconds: 500));
-    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //   return LocationScreen(
-    //     locationWeatherData: weatherData,
-    //   );
-    // }));
-
-    // Using an animated transition between two screens:
-    // Navigator.push(context, _createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
     RoutesHelper routesHelper = RoutesHelper();
     Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
   }
-
-  final spinkit = SpinKitDualRing(
-    color: Colors.white,
-    size: 100.0,
-    // duration: Duration(milliseconds: 3000),
-  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: spinkit,
+      child: TransitionSpinner(),
     ));
   }
 }
