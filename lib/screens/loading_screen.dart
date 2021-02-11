@@ -1,6 +1,7 @@
 // Packages:
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'dart:io';
 
 // Services:
 import 'package:clima/services/location.dart';
@@ -31,29 +32,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
     NetworkHelper network = NetworkHelper();
     var weatherData = await network.getDataByCoordinates(lat: location.latitude, long: location.longitude);
 
+    // Adds an additional delay so we show a little more of the spinner:
+    // await Future.delayed(const Duration(milliseconds: 500));
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationScreen();
+      return LocationScreen(
+        locationWeatherData: weatherData,
+      );
     }));
   }
 
-  // final spinkit = SpinKitFadingCircle(
-  //   itemBuilder: (BuildContext context, int index) {
-  //     return DecoratedBox(
-  //       decoration: BoxDecoration(
-  //         color: index.isEven ? Colors.red : Colors.green,
-  //       ),
-  //     );
-  //   },
-  // );
+  final spinkit = SpinKitDualRing(
+    color: Colors.white,
+    size: 100.0,
+    // duration: Duration(milliseconds: 3000),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: SpinKitDoubleBounce(
-        color: Colors.white,
-        size: 100.0,
-      ),
+      child: spinkit,
     ));
   }
 }
