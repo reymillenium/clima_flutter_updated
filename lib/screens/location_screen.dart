@@ -7,8 +7,6 @@ import 'package:clima/utilities/constants.dart';
 // Services:
 import 'package:clima/services/weather.dart';
 
-WeatherModel weatherHelper = WeatherModel();
-
 class LocationScreen extends StatefulWidget {
   // Properties:
   final locationWeatherData;
@@ -22,6 +20,7 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   // Properties:
+  WeatherModel weatherHelper = WeatherModel();
   double temperature;
   int conditionNumber;
   String cityName;
@@ -34,20 +33,12 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic weatherData) {
-    // double latitude = jsonDecode(data)['coord']['lat'];
-    // double longitude = jsonDecode(data)['coord']['lon'];
-    // String description = jsonDecode(data)['weather'][0]['description'];
-
     setState(() {
       temperature = weatherData['main']['temp'];
       conditionNumber = weatherData['weather'][0]['id'];
       cityName = weatherData['name'];
       iconCode = weatherData['weather'][0]['icon'];
     });
-
-    // print('Temperature: $temperature');
-    // print('conditionNumber: $conditionNumber');
-    // print('cityName: $cityName');
   }
 
   Widget build(BuildContext context) {
@@ -93,11 +84,9 @@ class _LocationScreenState extends State<LocationScreen> {
                       '$temperature °',
                       style: kTempTextStyle,
                     ),
-                    // Text(
-                    //   weatherHelper.getWeatherIcon(conditionNumber),
-                    //   style: kConditionTextStyle,
-                    // ),
-                    Image(image: weatherHelper.getOpenWeatherIcon(iconCode: iconCode))
+                    Image(
+                      image: weatherHelper.getOpenWeatherIcon(iconCode: iconCode),
+                    )
                   ],
                 ),
               ),
