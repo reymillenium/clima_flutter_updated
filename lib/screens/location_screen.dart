@@ -1,5 +1,6 @@
 // Packages:
 import 'package:flutter/material.dart';
+import 'package:deep_pick/deep_pick.dart';
 
 // Constants:
 import 'package:clima/utilities/constants.dart';
@@ -34,10 +35,10 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void updateUI(dynamic weatherData) {
     setState(() {
-      temperature = weatherData['main']['temp'];
-      conditionNumber = weatherData['weather'][0]['id'];
-      cityName = weatherData['name'];
-      iconCode = weatherData['weather'][0]['icon'];
+      temperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100;
+      conditionNumber = pick(weatherData, 'weather', 0, 'id').asIntOrNull() ?? 0;
+      cityName = pick(weatherData, 'name').asStringOrNull() ?? 'Error City';
+      iconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
     });
   }
 

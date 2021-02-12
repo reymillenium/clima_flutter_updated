@@ -7,12 +7,12 @@ const openWeatherApiKey = '888e3a5d9c71ad9496ae5659aaf9bcc0';
 // Text Styles:
 const kTempTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
-  fontSize: 80.0,
+  fontSize: 65.0,
 );
 
 const kMessageTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
-  fontSize: 60.0,
+  fontSize: 55.0,
 );
 
 const kButtonTextStyle = TextStyle(

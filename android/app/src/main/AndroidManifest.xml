@@ -3,6 +3,9 @@
     <!-- Required to get access to the GPS location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!--  to continue receiving updates even when your App is running in the background  -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <!-- Required to fetch data from the internet. -->
     <uses-permission android:name="android.permission.INTERNET" />
     
