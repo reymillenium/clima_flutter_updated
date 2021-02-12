@@ -2,11 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:deep_pick/deep_pick.dart';
 
-// Constants:
-import 'package:clima/utilities/constants.dart';
+// Screens:
+import 'package:clima/screens/city_screen.dart';
 
 // Services:
 import 'package:clima/services/weather.dart';
+import 'package:clima/services/routes.dart';
+
+// Utilities:
+import 'package:clima/utilities/constants.dart';
 
 class LocationScreen extends StatefulWidget {
   // Properties:
@@ -72,7 +76,10 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      RoutesHelper routesHelper = RoutesHelper();
+                      Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,

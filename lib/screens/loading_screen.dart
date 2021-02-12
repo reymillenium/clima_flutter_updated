@@ -1,5 +1,4 @@
 // Packages:
-import 'package:clima/services/routes.dart';
 import 'package:clima/services/weather.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -9,6 +8,9 @@ import 'package:clima/screens/location_screen.dart';
 
 // Components:
 import 'package:clima/components/transition_spinner.dart';
+
+// Services:
+import 'package:clima/services/routes.dart';
 
 class LoadingScreen extends StatefulWidget {
   LoadingScreen({Key key, this.title}) : super(key: key);
