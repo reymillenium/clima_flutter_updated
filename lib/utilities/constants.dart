@@ -23,3 +23,13 @@ const kButtonTextStyle = TextStyle(
 const kConditionTextStyle = TextStyle(
   fontSize: 100.0,
 );
+
+const kInputTextHintStyle = TextStyle(
+  color: Colors.grey,
+  fontFamily: 'Spartan MB',
+);
+
+const kInputTextStyle = TextStyle(
+  color: Colors.black,
+  fontFamily: 'Spartan MB',
+);
