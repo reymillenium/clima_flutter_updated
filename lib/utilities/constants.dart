@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
+const openWeatherOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall';
 const openWeatherApiKey = '888e3a5d9c71ad9496ae5659aaf9bcc0';
 
 // Text Styles:

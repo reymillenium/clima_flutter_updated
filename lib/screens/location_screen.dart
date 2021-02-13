@@ -26,10 +26,10 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   // Properties:
   WeatherModel weatherHelper = WeatherModel();
-  double temperature;
-  int conditionNumber;
+  double currentTemperature;
+  int currentConditionNumber;
   String cityName;
-  String iconCode;
+  String currentIconCode;
 
   @override
   void initState() {
@@ -39,12 +39,12 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void updateUI(dynamic weatherData) {
     setState(() {
-      temperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100;
-      conditionNumber = pick(weatherData, 'weather', 0, 'id').asIntOrNull() ?? 0;
+      currentTemperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100;
+      currentConditionNumber = pick(weatherData, 'weather', 0, 'id').asIntOrNull() ?? 0;
       cityName = pick(weatherData, 'name').asStringOrNull() ?? 'Error City';
-      iconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
+      currentIconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
     });
-    print(weatherData);
+    // print(weatherData);
   }
 
   Widget build(BuildContext context) {
@@ -68,6 +68,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   FlatButton(
                     onPressed: () async {
+                      var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
+                      print(oneCallWeatherData);
                       var weatherData = await weatherHelper.getCurrentLocationCurrentWeather();
                       updateUI(weatherData);
                     },
@@ -97,11 +99,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '$temperature °',
+                      '$currentTemperature °',
                       style: kTempTextStyle,
                     ),
                     Image(
-                      image: weatherHelper.getOpenWeatherIcon(iconCode: iconCode),
+                      image: weatherHelper.getOpenWeatherIcon(iconCode: currentIconCode),
                     )
                   ],
                 ),
@@ -109,7 +111,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "${weatherHelper.getMessage(temperature)} in $cityName!",
+                  "${weatherHelper.getMessage(currentTemperature)} in $cityName!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),

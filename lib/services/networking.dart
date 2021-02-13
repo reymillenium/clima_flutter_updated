@@ -12,6 +12,13 @@ class NetworkHelper {
     return await _getData(url: byCoordinatesURL);
   }
 
+  // Gets all the available data in one call, given a latitude and a longitude (coordinates):
+  Future getOneCallDataByCoordinates({double lat, double long}) async {
+    String oneCallByCoordinatesURL = '$openWeatherOneCallURL?lat=$lat&lon=$long&appid=$openWeatherApiKey&units=metric';
+    print(oneCallByCoordinatesURL);
+    return await _getData(url: oneCallByCoordinatesURL);
+  }
+
   // Gets the data given the name of a city:
   Future getDataByCity({String cityName}) async {
     String byCityURL = '$openWeatherMapURL?q=$cityName&appid=$openWeatherApiKey&units=metric';
