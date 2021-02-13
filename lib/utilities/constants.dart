@@ -24,12 +24,30 @@ const kConditionTextStyle = TextStyle(
   fontSize: 100.0,
 );
 
-const kInputTextHintStyle = TextStyle(
+const kTextFieldHintStyle = TextStyle(
   color: Colors.grey,
   fontFamily: 'Spartan MB',
 );
 
-const kInputTextStyle = TextStyle(
+const kTextFieldInputStyle = TextStyle(
   color: Colors.black,
   fontFamily: 'Spartan MB',
+);
+
+const kTextFieldDecoration = InputDecoration(
+  filled: true,
+  fillColor: Colors.white,
+  icon: Icon(
+    Icons.location_city,
+    color: Colors.white,
+    size: 40.0,
+  ),
+  hintText: 'Type the city',
+  hintStyle: kTextFieldHintStyle,
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(8.0),
+    ),
+    borderSide: BorderSide.none,
+  ),
 );

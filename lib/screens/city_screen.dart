@@ -49,24 +49,8 @@ class _CityScreenState extends State<CityScreen> {
                 padding: EdgeInsets.all(20.0),
                 child: TextField(
                   autofocus: true,
-                  style: kInputTextStyle,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    icon: Icon(
-                      Icons.location_city,
-                      color: Colors.white,
-                      size: 40.0,
-                    ),
-                    hintText: 'Type the city',
-                    hintStyle: kInputTextHintStyle,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8.0),
-                      ),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
+                  style: kTextFieldInputStyle,
+                  decoration: kTextFieldDecoration,
                   cursorColor: Colors.blue,
                 ),
               ),
