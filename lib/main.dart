@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Clima',
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        textSelectionColor: Colors.lightBlue.shade50,
+      ),
       home: LoadingScreen(title: 'Clima'),
     );
   }
