@@ -10,6 +10,15 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+  FocusNode myFocusNode;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myFocusNode = FocusNode();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +47,28 @@ class _CityScreenState extends State<CityScreen> {
               ),
               Container(
                 padding: EdgeInsets.all(20.0),
-                child: null,
+                child: TextField(
+                  autofocus: true,
+                  style: kInputTextStyle,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    icon: Icon(
+                      Icons.location_city,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
+                    hintText: 'Type the city',
+                    hintStyle: kInputTextHintStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8.0),
+                      ),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  cursorColor: Colors.blue,
+                ),
               ),
               FlatButton(
                 onPressed: () {},
