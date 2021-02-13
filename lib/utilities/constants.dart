@@ -52,3 +52,10 @@ const kTextFieldDecoration = InputDecoration(
     borderSide: BorderSide.none,
   ),
 );
+
+// New Styles for New Design:
+const kNewCityNameTitleTextStyle = TextStyle(
+  color: Colors.white,
+  fontFamily: 'Spartan MB',
+  fontSize: 24.0,
+);
