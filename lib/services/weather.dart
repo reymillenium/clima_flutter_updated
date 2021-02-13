@@ -52,4 +52,9 @@ class WeatherModel {
     NetworkHelper network = NetworkHelper();
     return await network.getDataByCoordinates(lat: location.latitude, long: location.longitude);
   }
+
+  Future<dynamic> getCityWeather({String cityName}) async {
+    NetworkHelper network = NetworkHelper();
+    return await network.getDataByCity(cityName: cityName);
+  }
 }
