@@ -82,8 +82,13 @@ class _CityScreenState extends State<CityScreen> {
               FlatButton(
                 onPressed: () async {
                   var weatherData = await weatherHelper.getCityWeather(cityName: cityName);
-                  RoutesHelper routesHelper = RoutesHelper();
-                  Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
+                  if (weatherData != null) {
+                    RoutesHelper routesHelper = RoutesHelper();
+                    Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
+                  } else {
+                    String alertMessage = cityName == null ? 'You must type the name of a valid city' : 'That city does not exist.';
+                    weatherHelper.createAlert(context, alertMessage).show();
+                  }
                 },
                 child: Text(
                   'Get Weather',

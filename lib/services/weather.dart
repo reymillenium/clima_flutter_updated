@@ -1,6 +1,7 @@
 // Packages:
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 // Services:
 import 'package:clima/services/location.dart';
@@ -56,5 +57,28 @@ class WeatherModel {
   Future<dynamic> getCityWeather({String cityName}) async {
     NetworkHelper network = NetworkHelper();
     return await network.getDataByCity(cityName: cityName);
+  }
+
+  Alert createAlert(BuildContext context, String message) {
+    return (Alert(
+      context: context,
+      style: AlertStyle(
+        backgroundColor: Colors.white,
+      ),
+      type: AlertType.success,
+      title: "Quizz finished",
+      desc: message,
+      buttons: [
+        DialogButton(
+          child: Text(
+            "OK",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+          color: Colors.lightBlueAccent,
+        )
+      ],
+    ));
   }
 }
