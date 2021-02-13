@@ -9,17 +9,17 @@ class NetworkHelper {
   // Gets the data given a latitude and a longitude (coordinates):
   Future getDataByCoordinates({double lat, double long}) async {
     String byCoordinatesURL = '$openWeatherMapURL?lat=$lat&lon=$long&appid=$openWeatherApiKey&units=metric';
-    return await getData(url: byCoordinatesURL);
+    return await _getData(url: byCoordinatesURL);
   }
 
   // Gets the data given the name of a city:
   Future getDataByCity({String cityName}) async {
     String byCityURL = '$openWeatherMapURL?q=$cityName&appid=$openWeatherApiKey&units=metric';
-    return await getData(url: byCityURL);
+    return await _getData(url: byCityURL);
   }
 
   // Gets the data given a url:
-  Future<dynamic> getData({String url}) async {
+  Future<dynamic> _getData({String url}) async {
     http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
