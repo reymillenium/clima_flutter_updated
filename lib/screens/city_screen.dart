@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:deep_pick/deep_pick.dart';
 
+// Screens:
+import 'package:clima/screens/location_screen.dart';
+
 // Services:
 import 'package:clima/services/weather.dart';
+import 'package:clima/services/routes.dart';
 
 // Utilities:
 import 'package:clima/utilities/constants.dart';
@@ -17,20 +21,8 @@ class CityScreen extends StatefulWidget {
 class _CityScreenState extends State<CityScreen> {
   // Properties:
   WeatherModel weatherHelper = WeatherModel();
-  double temperature;
-  int conditionNumber;
   String cityName;
-  String iconCode;
-  FocusNode myFocusNode;
   Timer searchOnStoppedTyping;
-  // String cityName;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    myFocusNode = FocusNode();
-  }
 
   _onChangeHandler(value) {
     const duration = Duration(milliseconds: 500); // set the duration that you want call search() after that.
@@ -42,15 +34,6 @@ class _CityScreenState extends State<CityScreen> {
             cityName = value;
           });
         }));
-  }
-
-  void updateUI(dynamic weatherData) {
-    setState(() {
-      temperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100;
-      conditionNumber = pick(weatherData, 'weather', 0, 'id').asIntOrNull() ?? 0;
-      cityName = pick(weatherData, 'name').asStringOrNull() ?? 'Error City';
-      iconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
-    });
   }
 
   @override
@@ -99,37 +82,12 @@ class _CityScreenState extends State<CityScreen> {
               FlatButton(
                 onPressed: () async {
                   var weatherData = await weatherHelper.getCityWeather(cityName: cityName);
-                  updateUI(weatherData);
-                  // print(weatherData);
+                  RoutesHelper routesHelper = RoutesHelper();
+                  Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
                 },
                 child: Text(
                   'Get Weather',
                   style: kButtonTextStyle,
-                ),
-              ),
-
-              Text(cityName),
-
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      '$temperature °',
-                      style: kTempTextStyle,
-                    ),
-                    Image(
-                      image: weatherHelper.getOpenWeatherIcon(iconCode: iconCode),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 15.0),
-                child: Text(
-                  "${weatherHelper.getMessage(temperature)} in $cityName!",
-                  textAlign: TextAlign.right,
-                  style: kMessageTextStyle,
                 ),
               ),
             ],
