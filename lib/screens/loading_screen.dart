@@ -29,7 +29,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocationData() async {
-    var weatherData = await WeatherModel().getLocationWeather();
+    var weatherData = await WeatherModel().getCurrentLocationCurrentWeather();
     // await Future.delayed(const Duration(milliseconds: 500));
     RoutesHelper routesHelper = RoutesHelper();
     Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));

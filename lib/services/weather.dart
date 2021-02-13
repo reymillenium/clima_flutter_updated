@@ -47,7 +47,7 @@ class WeatherModel {
     return NetworkImage('http://openweathermap.org/img/wn/$iconCode@2x.png');
   }
 
-  Future<dynamic> getLocationWeather() async {
+  Future<dynamic> getCurrentLocationCurrentWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
     NetworkHelper network = NetworkHelper();
