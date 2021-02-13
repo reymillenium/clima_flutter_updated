@@ -36,6 +36,18 @@ class _CityScreenState extends State<CityScreen> {
         }));
   }
 
+  void searchCityData() async {
+    var weatherData = await weatherHelper.getCityWeather(cityName: cityName);
+    if (weatherData != null) {
+      RoutesHelper routesHelper = RoutesHelper();
+      // Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
+      Navigator.pop(context, weatherData);
+    } else {
+      String alertMessage = cityName == null ? 'You must type the name of a valid city' : 'The city \"$cityName\" doesn\'t exist.';
+      weatherHelper.createAlert(context, alertMessage).show();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,21 +87,16 @@ class _CityScreenState extends State<CityScreen> {
                   onChanged: (value) {
                     _onChangeHandler(value);
                   },
+                  onSubmitted: (value) async {
+                    await Future.delayed(const Duration(milliseconds: 500));
+                    searchCityData();
+                  },
                 ),
               ),
 
               // Search button
               FlatButton(
-                onPressed: () async {
-                  var weatherData = await weatherHelper.getCityWeather(cityName: cityName);
-                  if (weatherData != null) {
-                    RoutesHelper routesHelper = RoutesHelper();
-                    Navigator.of(context).push(routesHelper.createRoute(destiny: LocationScreen(locationWeatherData: weatherData)));
-                  } else {
-                    String alertMessage = cityName == null ? 'You must type the name of a valid city' : 'That city does not exist.';
-                    weatherHelper.createAlert(context, alertMessage).show();
-                  }
-                },
+                onPressed: searchCityData,
                 child: Text(
                   'Get Weather',
                   style: kButtonTextStyle,
