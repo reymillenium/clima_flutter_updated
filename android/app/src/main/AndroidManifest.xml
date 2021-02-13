@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.reiniergarcia.clima_flutter_updated">
-    <!-- Required to get access to the GPS location -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Required to get access to the GPS location (high precision) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Required to get access to the GPS location (lower precision) -->
+<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
 
     <!--  to continue receiving updates even when your App is running in the background  -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />

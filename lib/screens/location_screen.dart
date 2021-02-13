@@ -44,6 +44,7 @@ class _LocationScreenState extends State<LocationScreen> {
       cityName = pick(weatherData, 'name').asStringOrNull() ?? 'Error City';
       iconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
     });
+    print(weatherData);
   }
 
   Widget build(BuildContext context) {
