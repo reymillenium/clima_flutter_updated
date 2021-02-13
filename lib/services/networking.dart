@@ -7,7 +7,7 @@ import 'package:clima/utilities/constants.dart';
 
 class NetworkHelper {
   // Gets the data given a latitude and a longitude (coordinates):
-  Future getDataByCoordinates({double lat, double long}) async {
+  Future getCurrentDataByCoordinates({double lat, double long}) async {
     String byCoordinatesURL = '$openWeatherMapURL?lat=$lat&lon=$long&appid=$openWeatherApiKey&units=metric';
     return await _getData(url: byCoordinatesURL);
   }

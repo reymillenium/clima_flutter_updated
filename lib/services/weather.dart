@@ -51,7 +51,7 @@ class WeatherModel {
     Location location = Location();
     await location.getCurrentLocation();
     NetworkHelper network = NetworkHelper();
-    return await network.getDataByCoordinates(lat: location.latitude, long: location.longitude);
+    return await network.getCurrentDataByCoordinates(lat: location.latitude, long: location.longitude);
   }
 
   Future<dynamic> getCityWeather({String cityName}) async {
