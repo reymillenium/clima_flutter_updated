@@ -1,9 +1,13 @@
 // Packages:
 import 'package:flutter/material.dart';
 import 'package:deep_pick/deep_pick.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Screens:
 import 'package:clima/screens/city_screen.dart';
+
+// Components:
+import 'package:clima/components/reusable_card.dart';
 
 // Services:
 import 'package:clima/services/weather.dart';
@@ -27,36 +31,48 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   // Properties:
   WeatherModel weatherHelper = WeatherModel();
+  // From current weather data
   double currentTemperature;
+  double currentMinTemperature;
+  double currentMaxTemperature;
   int currentConditionNumber;
   String cityName;
   String currentIconCode;
 
+  // From OneCall weather data (forecast)
+  String currentDescription;
+
   @override
   void initState() {
     super.initState();
-    updateUI(widget.locationWeatherData);
+    updateUI(widget.locationWeatherData, widget.oneCallWeatherData);
   }
 
-  void updateUI(dynamic weatherData) {
+  void updateUI(dynamic weatherData, dynamic oneCallWeatherData) {
     setState(() {
-      currentTemperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100; // current.temp
-      currentConditionNumber = pick(weatherData, 'weather', 0, 'id').asIntOrNull() ?? 0; // current.weather[0].id
+      // From current weather data
+      currentTemperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100;
+      currentMinTemperature = pick(weatherData, 'main', 'temp_min').asDoubleOrNull() ?? -100;
+      currentMaxTemperature = pick(weatherData, 'main', 'temp_max').asDoubleOrNull() ?? -100;
+      currentConditionNumber = pick(weatherData, 'weather', 0, 'id').asIntOrNull() ?? 0;
       cityName = pick(weatherData, 'name').asStringOrNull() ?? 'Unknown'; // * Not included on One Call
-      currentIconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n'; // current.weather[0].icon
+      currentIconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
+
+      // From OneCall weather data (forecast)
+      currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown'; // current.weather[0].description
     });
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/location_background.jpg'),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop),
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage('images/location_background.jpg'),
+        //     fit: BoxFit.cover,
+        //     colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop),
+        //   ),
+        // ),
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Center(
@@ -72,7 +88,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       onPressed: () async {
                         var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
                         var weatherData = await weatherHelper.getCurrentLocationCurrentWeather();
-                        updateUI(weatherData);
+                        updateUI(weatherData, oneCallWeatherData);
                       },
                       child: Icon(
                         Icons.near_me,
@@ -80,14 +96,14 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                     ),
 
-                    // Cities locator button
+                    // City locator button
                     FlatButton(
                       onPressed: () async {
                         RoutesHelper routesHelper = RoutesHelper();
                         // Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
                         var weatherData = await Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
                         if (weatherData != null) {
-                          updateUI(weatherData);
+                          // updateUI(weatherData, );
                         }
                       },
                       child: Icon(
@@ -98,10 +114,42 @@ class _LocationScreenState extends State<LocationScreen> {
                   ],
                 ),
 
-                // City Name
-                Text(
-                  cityName,
-                  style: kNewCityNameTitleTextStyle,
+                // Row # 1: Current Weather Summary
+                Expanded(
+                  child: ReusableCard(
+                    color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          // cityName.toUpperCase(),
+                          cityName,
+                          style: kNewCityNameTitleTextStyle,
+                          // style: kLabelTextStyle,
+                        ),
+                        Text(currentDescription),
+                        Text(
+                          '${currentTemperature.toStringAsFixed(1)} °',
+                          style: kNewHugeTemperatureValueTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('H: ${currentMaxTemperature.toStringAsFixed(1)} °'),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Text('L: ${currentMinTemperature.toStringAsFixed(1)} °'),
+                          ],
+                        )
+                      ],
+                    ),
+                    onTapEvent: () {
+                      // setState(() {
+                      //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
+                      // });
+                    },
+                  ),
                 ),
 
                 Padding(

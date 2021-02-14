@@ -14,8 +14,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Clima',
       theme: ThemeData.dark().copyWith(
-        textSelectionColor: Colors.lightBlue.shade50,
-      ),
+          textSelectionColor: Colors.lightBlue.shade50,
+          primaryColor: Color(0xFF0A0E21),
+          scaffoldBackgroundColor: Color(0xFF0A0E21),
+
+          // floatingActionButton
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Colors.purple,
+          )),
       home: LoadingScreen(title: 'Clima'),
     );
   }

@@ -56,6 +56,34 @@ const kTextFieldDecoration = InputDecoration(
 // New Styles for New Design:
 const kNewCityNameTitleTextStyle = TextStyle(
   color: Colors.white,
+  // color: kLabelTextColor,
   fontFamily: 'Spartan MB',
-  fontSize: 24.0,
+  fontSize: 20.0,
+);
+
+const kNewHugeTemperatureValueTextStyle = TextStyle(
+  // color: kLabelTextColor,
+  // fontFamily: 'Spartan MB',
+  fontSize: 80.0,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
+
+// * * * * * * * * * * * * * * * * * * * * * * * *
+// *                 Colors:                     *
+// * * * * * * * * * * * * * * * * * * * * * * * *
+const Color kActiveCardColor = Color(0xFF1D1E33);
+const Color kInactiveCardColor = Color(0xFF111328);
+const Color kTranslucentBottomContainerColor = Color(0x29EB1555);
+const Color kBottomContainerColor = Color(0xFFEB1555);
+const Color kLabelTextColor = Color(0xFF8D8E98);
+const Color kLightButtonColor = Color(0xFF4C4F5E);
+const Color kGreenResultsColor = Color(0xFF24D876);
+
+// * * * * * * * * * * * * * * * * * * * * * * * *
+// *              Text Styles:                   *
+// * * * * * * * * * * * * * * * * * * * * * * * *
+const kLabelTextStyle = TextStyle(
+  fontSize: 18,
+  color: kLabelTextColor,
 );
