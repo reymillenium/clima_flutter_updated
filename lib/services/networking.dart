@@ -9,7 +9,7 @@ class NetworkHelper {
   // Gets the data given a latitude and a longitude (coordinates):
   Future getCurrentDataByCoordinates({double lat, double long}) async {
     String byCoordinatesURL = '$openWeatherMapURL?lat=$lat&lon=$long&appid=$openWeatherApiKey&units=metric';
-    print(byCoordinatesURL);
+    // print(byCoordinatesURL);
     return await _getData(url: byCoordinatesURL);
   }
 

@@ -64,7 +64,7 @@ const kNewCityNameTitleTextStyle = TextStyle(
 const kNewHugeTemperatureValueTextStyle = TextStyle(
   // color: kLabelTextColor,
   // fontFamily: 'Spartan MB',
-  fontSize: 80.0,
+  fontSize: 60.0,
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );

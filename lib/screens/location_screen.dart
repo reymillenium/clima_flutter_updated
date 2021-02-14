@@ -116,6 +116,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
                 // Row # 1: Current Weather Summary
                 Expanded(
+                  flex: 2,
                   child: ReusableCard(
                     color: kActiveCardColor,
                     cardChild: Column(
@@ -128,9 +129,17 @@ class _LocationScreenState extends State<LocationScreen> {
                           // style: kLabelTextStyle,
                         ),
                         Text(currentDescription),
-                        Text(
-                          '${currentTemperature.toStringAsFixed(1)} °',
-                          style: kNewHugeTemperatureValueTextStyle,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${currentTemperature.toStringAsFixed(1)} °',
+                              style: kNewHugeTemperatureValueTextStyle,
+                            ),
+                            Image(
+                              image: weatherHelper.getOpenWeatherBigIcon(iconCode: currentIconCode),
+                            )
+                          ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -152,26 +161,55 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ),
 
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        '$currentTemperature °',
-                        style: kTempTextStyle,
-                      ),
-                      Image(
-                        image: weatherHelper.getOpenWeatherIcon(iconCode: currentIconCode),
-                      )
-                    ],
+                // Row # 2:
+                Expanded(
+                  child: ReusableCard(
+                    color: kActiveCardColor,
+                    cardChild: null,
+                    onTapEvent: () {
+                      // setState(() {
+                      //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
+                      // });
+                    },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(right: 15.0),
-                  child: Text(
-                    "${weatherHelper.getMessage(currentTemperature)} in $cityName!",
-                    textAlign: TextAlign.right,
-                    style: kMessageTextStyle,
+
+                // Row # 3:
+                Expanded(
+                  child: ReusableCard(
+                    color: kActiveCardColor,
+                    cardChild: null,
+                    onTapEvent: () {
+                      // setState(() {
+                      //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
+                      // });
+                    },
+                  ),
+                ),
+
+                // Row # 4:
+                Expanded(
+                  child: ReusableCard(
+                    color: kActiveCardColor,
+                    cardChild: null,
+                    onTapEvent: () {
+                      // setState(() {
+                      //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
+                      // });
+                    },
+                  ),
+                ),
+
+                // Row # 5:
+                Expanded(
+                  child: ReusableCard(
+                    color: kActiveCardColor,
+                    cardChild: null,
+                    onTapEvent: () {
+                      // setState(() {
+                      //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
+                      // });
+                    },
                   ),
                 ),
               ],
