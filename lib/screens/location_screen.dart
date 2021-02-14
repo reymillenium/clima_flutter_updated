@@ -110,7 +110,37 @@ class _LocationScreenState extends State<LocationScreen> {
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardColor,
-                    cardChild: null,
+                    cardChild: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 10.0,
+                      ),
+                      children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('Now'),
+                              Text('🌩'),
+                              Text('75 °'),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('12am'),
+                              Text('🌩'),
+                              Text('75 °'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                     onTapEvent: () {
                       // setState(() {
                       //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
@@ -123,7 +153,21 @@ class _LocationScreenState extends State<LocationScreen> {
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardColor,
-                    cardChild: null,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          children: [],
+                        ),
+                        Divider(
+                          color: Colors.white70,
+                          height: 20,
+                          thickness: 1,
+                          indent: 4,
+                          endIndent: 4,
+                        ),
+                      ],
+                    ),
                     onTapEvent: () {
                       // setState(() {
                       //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
