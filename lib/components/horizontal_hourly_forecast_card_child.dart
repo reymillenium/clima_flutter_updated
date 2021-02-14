@@ -23,13 +23,21 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
   // From current weather data
   final double currentTemperature;
   final String currentIconCode;
+  final int sunrise;
+  final int sunset;
 
   // From OneCall weather data (forecast)
 
   final dynamic hourlyForecast;
 
   // Constructor:
-  HorizontalHourlyForecastCardChild({this.currentTemperature, this.currentIconCode, this.hourlyForecast});
+  HorizontalHourlyForecastCardChild({
+    this.currentTemperature,
+    this.currentIconCode,
+    this.sunrise,
+    this.sunset,
+    this.hourlyForecast,
+  });
 
   List<Widget> createForecastListViewChildren() {
     List<Widget> result = [];
@@ -88,6 +96,64 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
         );
 
         result.add(newtWeatherElement);
+
+        var timeSinceEpochInSecSunrise = sunrise;
+        final dateUtcSunrise = DateTime.fromMillisecondsSinceEpoch(timeSinceEpochInSecSunrise * 1000, isUtc: true);
+        var localDateTimeSunrise = dateUtcSunrise.toLocal();
+        DateTime upToHourNewLocalDateTime = new DateTime(newDateLocal.year, newDateLocal.month, newDateLocal.day, newDateLocal.hour);
+        DateTime upToHourDateTimeSunrise = new DateTime(localDateTimeSunrise.year, localDateTimeSunrise.month, localDateTimeSunrise.day, localDateTimeSunrise.hour);
+
+        if (upToHourDateTimeSunrise == upToHourNewLocalDateTime) {
+          var formattedSunriseDateTime = DateFormat('h:mm a').format(localDateTimeSunrise).toLowerCase();
+
+          // Composing the Sunrise element to insert
+          Container newtSunriseElement = Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('$formattedSunriseDateTime'),
+                // Image(
+                //   image: weatherHelper.getOpenWeatherSmallIcon(iconCode: pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull()),
+                //   width: 40,
+                // ),
+                Text('🌅'), // hourly[0].temp
+                Text('Sunrise'), // hourly[0].temp
+              ],
+            ),
+          );
+
+          result.add(newtSunriseElement);
+        }
+
+        var timeSinceEpochInSecSunset = sunset;
+        final dateUtcSunset = DateTime.fromMillisecondsSinceEpoch(timeSinceEpochInSecSunset * 1000, isUtc: true);
+        var localDateTimeSunset = dateUtcSunset.toLocal();
+        // DateTime upToHourNewLocalDateTime = new DateTime(newDateLocal.year, newDateLocal.month, newDateLocal.day, newDateLocal.hour);
+        DateTime upToHourDateTimeSunset = new DateTime(localDateTimeSunset.year, localDateTimeSunset.month, localDateTimeSunset.day, localDateTimeSunset.hour);
+
+        if (upToHourDateTimeSunset == upToHourNewLocalDateTime) {
+          var formattedSunsetDateTime = DateFormat('h:mm a').format(localDateTimeSunset).toLowerCase();
+
+          // Composing the Sunrise element to insert
+          Container newtSunsetElement = Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('$formattedSunsetDateTime'),
+                // Image(
+                //   image: weatherHelper.getOpenWeatherSmallIcon(iconCode: pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull()),
+                //   width: 40,
+                // ),
+                Text('🌆'), // hourly[0].temp
+                Text('Sunset'), // hourly[0].temp
+              ],
+            ),
+          );
+
+          result.add(newtSunsetElement);
+        }
       }
     }
 
