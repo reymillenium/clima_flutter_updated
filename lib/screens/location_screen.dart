@@ -67,13 +67,6 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('images/location_background.jpg'),
-        //     fit: BoxFit.cover,
-        //     colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop),
-        //   ),
-        // ),
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Center(
@@ -81,40 +74,6 @@ class _LocationScreenState extends State<LocationScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    // Near button
-                    FlatButton(
-                      onPressed: () async {
-                        var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
-                        var weatherData = await weatherHelper.getCurrentLocationCurrentWeather();
-                        updateUI(weatherData, oneCallWeatherData);
-                      },
-                      child: Icon(
-                        Icons.near_me,
-                        size: 24.0,
-                      ),
-                    ),
-
-                    // City locator button
-                    FlatButton(
-                      onPressed: () async {
-                        RoutesHelper routesHelper = RoutesHelper();
-                        // Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
-                        var weatherData = await Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
-                        if (weatherData != null) {
-                          // updateUI(weatherData, );
-                        }
-                      },
-                      child: Icon(
-                        Icons.location_city,
-                        size: 24.0,
-                      ),
-                    ),
-                  ],
-                ),
-
                 // Row # 1: Current Weather Summary
                 Expanded(
                   flex: 2,
@@ -128,12 +87,22 @@ class _LocationScreenState extends State<LocationScreen> {
                       currentIconCode: currentIconCode,
                       currentMaxTemperature: currentMaxTemperature,
                       currentMinTemperature: currentMinTemperature,
+                      onPressedTopLeft: () async {
+                        var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
+                        var weatherData = await weatherHelper.getCurrentLocationCurrentWeather();
+                        updateUI(weatherData, oneCallWeatherData);
+                      },
+                      onPressedTopRight: () async {
+                        RoutesHelper routesHelper = RoutesHelper();
+                        // Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
+                        var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
+                        var weatherData = await Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
+                        if (weatherData != null) {
+                          updateUI(weatherData, oneCallWeatherData);
+                        }
+                      },
                     ),
-                    onTapEvent: () {
-                      // setState(() {
-                      //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
-                      // });
-                    },
+                    onTapEvent: null,
                   ),
                 ),
 

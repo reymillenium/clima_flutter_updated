@@ -9,6 +9,8 @@ import 'package:clima/utilities/constants.dart';
 class CurrentWeatherSummaryCard extends StatelessWidget {
   const CurrentWeatherSummaryCard({
     Key key,
+    @required this.onPressedTopLeft,
+    @required this.onPressedTopRight,
     @required this.cityName,
     @required this.currentDescription,
     @required this.currentTemperature,
@@ -18,6 +20,8 @@ class CurrentWeatherSummaryCard extends StatelessWidget {
     @required this.currentMinTemperature,
   }) : super(key: key);
 
+  final Function onPressedTopLeft;
+  final Function onPressedTopRight;
   final String cityName;
   final String currentDescription;
   final double currentTemperature;
@@ -31,13 +35,40 @@ class CurrentWeatherSummaryCard extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          // cityName.toUpperCase(),
-          cityName,
-          style: kNewCityNameTitleTextStyle,
-          // style: kLabelTextStyle,
+        // Buttons with City name
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            // Near button
+            FlatButton(
+              onPressed: onPressedTopLeft,
+              child: Icon(
+                Icons.near_me,
+                size: 20.0,
+              ),
+            ),
+
+            Text(
+              cityName,
+              style: kNewCityNameTitleTextStyle,
+              // style: kLabelTextStyle,
+            ),
+
+            // City locator button
+            FlatButton(
+              onPressed: onPressedTopRight,
+              child: Icon(
+                Icons.location_city,
+                size: 20.0,
+              ),
+            ),
+          ],
         ),
+
+        // Description:
         Text(currentDescription),
+
+        // Current temperature with
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -53,11 +84,21 @@ class CurrentWeatherSummaryCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('H: ${currentMaxTemperature.toStringAsFixed(1)} °'),
+            Text(
+              '↑ ${currentMaxTemperature.toStringAsFixed(1)} °',
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
             SizedBox(
               width: 10.0,
             ),
-            Text('L: ${currentMinTemperature.toStringAsFixed(1)} °'),
+            Text(
+              '↓ ${currentMinTemperature.toStringAsFixed(1)} °',
+              style: TextStyle(
+                color: Colors.blue,
+              ),
+            ),
           ],
         )
       ],
