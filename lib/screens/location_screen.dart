@@ -9,6 +9,7 @@ import 'package:clima/screens/city_screen.dart';
 // Components:
 import 'package:clima/components/reusable_card.dart';
 import 'package:clima/components/current_weather_summary_card.dart';
+import 'package:clima/components/horizontal_hourly_forecast_card_child.dart';
 
 // Services:
 import 'package:clima/services/weather.dart';
@@ -42,6 +43,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   // From OneCall weather data (forecast)
   String currentDescription;
+  dynamic hourlyForecast;
 
   @override
   void initState() {
@@ -61,6 +63,9 @@ class _LocationScreenState extends State<LocationScreen> {
 
       // From OneCall weather data (forecast)
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown'; // current.weather[0].description
+      hourlyForecast = pick(oneCallWeatherData, 'hourly').value;
+      // print(pick(oneCallWeatherData, 'hourly'));
+      // print(pick(oneCallWeatherData, 'hourly').value);
     });
   }
 
@@ -110,36 +115,10 @@ class _LocationScreenState extends State<LocationScreen> {
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardColor,
-                    cardChild: ListView(
-                      scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 10.0,
-                      ),
-                      children: [
-                        Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text('Now'),
-                              Text('🌩'),
-                              Text('75 °'),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text('12am'),
-                              Text('🌩'),
-                              Text('75 °'),
-                            ],
-                          ),
-                        ),
-                      ],
+                    cardChild: HorizontalHourlyForecastCardChild(
+                      currentIconCode: currentIconCode,
+                      currentTemperature: currentTemperature,
+                      hourlyForecast: hourlyForecast,
                     ),
                     onTapEvent: () {
                       // setState(() {
