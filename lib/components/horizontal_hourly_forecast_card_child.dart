@@ -113,12 +113,11 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text('$formattedSunriseDateTime'),
-                // Image(
-                //   image: weatherHelper.getOpenWeatherSmallIcon(iconCode: pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull()),
-                //   width: 40,
-                // ),
-                Text('🌅'), // hourly[0].temp
-                Text('Sunrise'), // hourly[0].temp
+                Image(
+                  image: AssetImage('images/icons8-sunrise-32.png'),
+                  width: 40,
+                ),
+                Text('Sunrise'),
               ],
             ),
           );
@@ -142,12 +141,11 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text('$formattedSunsetDateTime'),
-                // Image(
-                //   image: weatherHelper.getOpenWeatherSmallIcon(iconCode: pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull()),
-                //   width: 40,
-                // ),
-                Text('🌆'), // hourly[0].temp
-                Text('Sunset'), // hourly[0].temp
+                Image(
+                  image: AssetImage('images/icons8-sunset-32.png'),
+                  width: 40,
+                ),
+                Text('Sunset'),
               ],
             ),
           );
