@@ -18,6 +18,7 @@ dependencies:
   deep_pick: ^0.6.0
   rflutter_alert: ^1.1.0
   font_awesome_flutter: ^8.11.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
