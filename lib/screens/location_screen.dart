@@ -8,6 +8,7 @@ import 'package:clima/screens/city_screen.dart';
 
 // Components:
 import 'package:clima/components/reusable_card.dart';
+import 'package:clima/components/current_weather_summary_card.dart';
 
 // Services:
 import 'package:clima/services/weather.dart';
@@ -119,39 +120,14 @@ class _LocationScreenState extends State<LocationScreen> {
                   flex: 2,
                   child: ReusableCard(
                     color: kActiveCardColor,
-                    cardChild: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          // cityName.toUpperCase(),
-                          cityName,
-                          style: kNewCityNameTitleTextStyle,
-                          // style: kLabelTextStyle,
-                        ),
-                        Text(currentDescription),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${currentTemperature.toStringAsFixed(1)} °',
-                              style: kNewHugeTemperatureValueTextStyle,
-                            ),
-                            Image(
-                              image: weatherHelper.getOpenWeatherBigIcon(iconCode: currentIconCode),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('H: ${currentMaxTemperature.toStringAsFixed(1)} °'),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text('L: ${currentMinTemperature.toStringAsFixed(1)} °'),
-                          ],
-                        )
-                      ],
+                    cardChild: CurrentWeatherSummaryCard(
+                      cityName: cityName,
+                      currentDescription: currentDescription,
+                      currentTemperature: currentTemperature,
+                      weatherBigIcon: weatherHelper.getOpenWeatherBigIcon(iconCode: currentIconCode),
+                      currentIconCode: currentIconCode,
+                      currentMaxTemperature: currentMaxTemperature,
+                      currentMinTemperature: currentMinTemperature,
                     ),
                     onTapEvent: () {
                       // setState(() {
