@@ -106,8 +106,10 @@ class _LocationScreenState extends State<LocationScreen> {
                       onPressedTopRight: () async {
                         RoutesHelper routesHelper = RoutesHelper();
                         // Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
-                        var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
                         var weatherData = await Navigator.of(context).push(routesHelper.createRoute(destiny: CityScreen()));
+                        double latitude = weatherData['coord']['lat'];
+                        double longitude = weatherData['coord']['lon'];
+                        var oneCallWeatherData = await weatherHelper.getOneCallWeatherByCoordinates(latitude: latitude, longitude: longitude);
                         if (weatherData != null) {
                           updateUI(weatherData, oneCallWeatherData);
                         }
