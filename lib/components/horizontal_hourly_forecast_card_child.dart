@@ -56,6 +56,7 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
     // The next 24 weather elements:
     for (var i = 0; i <= 24; i++) {
       String iconCode = pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull();
+      double pop = pick(hourlyForecast[i], 'pop').asDoubleOrNull();
       var timeSinceEpochInSec = pick(hourlyForecast[i], 'dt').asIntOrNull();
       var newDateLocal = timeHelper.getLocalTimeFromSecondsSinceEpoch(timeSinceEpochInSec);
       DateTime upToHourNewLocalDateTime = timeHelper.getTimeUpToHour(time: newDateLocal);
@@ -68,6 +69,7 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
         // Composing the element to insert
         Widget newWeatherElement = HorizontalHourlyElement(
           upperText: formattedDateTime,
+          pop: pop,
           weatherIcon: weatherHelper.getOpenWeatherSmallIcon(iconCode: iconCode),
           lowerText: newTemperature.toStringAsFixed(1),
         );
@@ -85,6 +87,7 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
           // Composing the Sunrise element to insert
           Widget newSunriseElement = HorizontalHourlyElement(
             upperText: formattedSunriseDateTime,
+            pop: pop,
             weatherIcon: AssetImage('images/icons8-sunrise-32.png'),
             lowerText: 'Sunrise',
           );
@@ -102,6 +105,7 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
 
           Widget newSunsetElement = HorizontalHourlyElement(
             upperText: formattedSunsetDateTime,
+            pop: pop,
             weatherIcon: AssetImage('images/icons8-sunset-32.png'),
             lowerText: 'Sunset',
           );

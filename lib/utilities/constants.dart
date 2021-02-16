@@ -88,3 +88,8 @@ const kLabelTextStyle = TextStyle(
   fontSize: 18,
   color: kLabelTextColor,
 );
+
+const kPopTextStyle = TextStyle(
+  fontSize: 12,
+  color: Colors.blueAccent,
+);

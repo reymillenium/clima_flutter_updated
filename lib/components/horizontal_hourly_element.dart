@@ -16,6 +16,9 @@ import 'package:clima/services/routes.dart';
 // Utilities:
 import 'package:clima/utilities/constants.dart';
 
+// Constants:
+import 'package:clima/utilities/constants.dart';
+
 class HorizontalHourlyElement extends StatelessWidget {
   const HorizontalHourlyElement({
     Key key,
@@ -26,18 +29,24 @@ class HorizontalHourlyElement extends StatelessWidget {
   }) : super(key: key);
 
   final String upperText;
-  final String pop;
+  final double pop;
   final ImageProvider weatherIcon;
   final String lowerText;
 
   @override
   Widget build(BuildContext context) {
+    String popToShow = (pop != null && pop >= 0.3) ? '${(pop * 100).toInt()}%' : '';
+
     return Container(
       padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text('$upperText'),
+          Text(
+            popToShow,
+            style: kPopTextStyle,
+          ),
           Image(
             image: weatherIcon,
             width: 40,
