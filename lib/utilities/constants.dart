@@ -73,6 +73,7 @@ const kNewHugeTemperatureValueTextStyle = TextStyle(
 // *                 Colors:                     *
 // * * * * * * * * * * * * * * * * * * * * * * * *
 const Color kActiveCardColor = Color(0xFF1D1E33);
+const Color kNewTestingCardColor = Color(0xFFA5D6A7);
 const Color kInactiveCardColor = Color(0xFF111328);
 const Color kTranslucentBottomContainerColor = Color(0x29EB1555);
 const Color kBottomContainerColor = Color(0xFFEB1555);

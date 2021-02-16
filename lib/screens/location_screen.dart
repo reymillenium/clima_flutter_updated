@@ -64,8 +64,10 @@ class _LocationScreenState extends State<LocationScreen> {
       currentIconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
       sunrise = pick(weatherData, 'sys', 'sunrise').asIntOrNull() ?? 0;
       sunset = pick(weatherData, 'sys', 'sunset').asIntOrNull() ?? 0;
-      print('Sunrise: $sunrise');
-      print('Sunset: $sunset');
+      // print('Sunrise: $sunrise');
+      // print('Sunset: $sunset');
+      // print('Sunrise2: ${pick(oneCallWeatherData, 'current', 'sunrise').asIntOrNull()}'); // current.sunrise
+      // print('Sunset2: ${pick(oneCallWeatherData, 'current', 'sunset').asIntOrNull()}'); // current.sunset
 
       // From OneCall weather data (forecast)
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown'; // current.weather[0].description
@@ -89,7 +91,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 Expanded(
                   flex: 2,
                   child: ReusableCard(
-                    color: kActiveCardColor,
+                    // color: kActiveCardColor,
+                    color: kNewTestingCardColor,
                     cardChild: CurrentWeatherSummaryCard(
                       cityName: cityName,
                       currentDescription: currentDescription,
@@ -119,10 +122,11 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ),
 
-                // Row # 2:
+                // Row # 2: Horizontal Hourly
                 Expanded(
                   child: ReusableCard(
-                    color: kActiveCardColor,
+                    // color: kActiveCardColor,
+                    color: kNewTestingCardColor,
                     cardChild: HorizontalHourlyForecastCardChild(
                       currentIconCode: currentIconCode,
                       currentTemperature: currentTemperature,
