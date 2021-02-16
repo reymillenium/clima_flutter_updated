@@ -13,6 +13,7 @@ import 'package:clima/components/horizontal_hourly_element.dart';
 // Services:
 import 'package:clima/services/weather.dart';
 import 'package:clima/services/routes.dart';
+import 'package:clima/services/time.dart';
 
 // Utilities:
 import 'package:clima/utilities/constants.dart';
@@ -20,6 +21,7 @@ import 'package:clima/utilities/constants.dart';
 class HorizontalHourlyForecastCardChild extends StatelessWidget {
   // Properties:
   final WeatherModel weatherHelper = WeatherModel();
+  final TimeHelper timeHelper = TimeHelper();
 
   // From current weather data
   final double currentTemperature;
@@ -42,100 +44,69 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
 
   List<Widget> createForecastListViewChildren() {
     List<Widget> result = [];
-    Container presentWeather = Container(
-      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text('Now'),
-          Image(
-            image: weatherHelper.getOpenWeatherSmallIcon(iconCode: currentIconCode),
-            width: 40,
-          ),
-          // Text('🌩'), // weatherHelper.getOpenWeatherBigIcon(iconCode: currentIconCode)
-          Text('${currentTemperature ?? 0} °'),
-        ],
-      ),
+
+    // Current element:
+    Widget currentWeatherElement = HorizontalHourlyElement(
+      upperText: 'Now',
+      weatherIcon: weatherHelper.getOpenWeatherSmallIcon(iconCode: currentIconCode),
+      lowerText: '${currentTemperature ?? 0} °',
     );
-    result.add(presentWeather);
+    result.add(currentWeatherElement);
 
+    // The next 24 weather elements:
     for (var i = 0; i <= 24; i++) {
+      String iconCode = pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull();
       var timeSinceEpochInSec = pick(hourlyForecast[i], 'dt').asIntOrNull();
-      final dateUtc = DateTime.fromMillisecondsSinceEpoch(timeSinceEpochInSec * 1000, isUtc: true);
-      var newDateLocal = dateUtc.toLocal();
-      DateTime now = new DateTime.now();
-      DateTime currentUpToHourDateTime = new DateTime(now.year, now.month, now.day, now.hour);
-      DateTime upToHourNewLocalDateTime = new DateTime(newDateLocal.year, newDateLocal.month, newDateLocal.day, newDateLocal.hour);
-
-      // Sunrise datetime:
-      var timeSinceEpochInSecSunrise = sunrise;
-      final dateUtcSunrise = DateTime.fromMillisecondsSinceEpoch(timeSinceEpochInSecSunrise * 1000, isUtc: true);
-      var localDateTimeSunrise = dateUtcSunrise.toLocal();
-      DateTime upToHourDateTimeSunrise = new DateTime(localDateTimeSunrise.year, localDateTimeSunrise.month, localDateTimeSunrise.day, localDateTimeSunrise.hour);
-
-      // Sunset datetime
-      var timeSinceEpochInSecSunset = sunset;
-      final dateUtcSunset = DateTime.fromMillisecondsSinceEpoch(timeSinceEpochInSecSunset * 1000, isUtc: true);
-      var localDateTimeSunset = dateUtcSunset.toLocal();
-      DateTime upToHourDateTimeSunset = new DateTime(localDateTimeSunset.year, localDateTimeSunset.month, localDateTimeSunset.day, localDateTimeSunset.hour);
+      var newDateLocal = timeHelper.getLocalTimeFromSecondsSinceEpoch(timeSinceEpochInSec);
+      DateTime upToHourNewLocalDateTime = timeHelper.getTimeUpToHour(time: newDateLocal);
+      DateTime currentUpToHourDateTime = timeHelper.getCurrentTimeUpToHour();
+      double newTemperature = pick(hourlyForecast[i], 'temp').asDoubleOrNull();
 
       if (newDateLocal.isAfter(currentUpToHourDateTime)) {
-        // var formattedDateTime = DateFormat('hh:mm a').format(newDateLocal);
-        var formattedDateTime = DateFormat('ha').format(newDateLocal).toLowerCase();
+        var formattedDateTime = timeHelper.getFormattedDateTime(newDateLocal);
 
         // Composing the element to insert
-        Widget newtWeatherElement = HorizontalHourlyElement(
+        Widget newWeatherElement = HorizontalHourlyElement(
           upperText: formattedDateTime,
-          weatherIcon: weatherHelper.getOpenWeatherSmallIcon(iconCode: pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull()),
-          lowerText: pick(hourlyForecast[i], 'temp').asDoubleOrNull().toStringAsFixed(1),
+          weatherIcon: weatherHelper.getOpenWeatherSmallIcon(iconCode: iconCode),
+          lowerText: newTemperature.toStringAsFixed(1),
         );
 
-        result.add(newtWeatherElement);
+        result.add(newWeatherElement);
+
+        // Sunrise datetime:
+        var localDateTimeSunrise = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunrise);
+        DateTime upToHourDateTimeSunrise = timeHelper.getTimeUpToHour(time: localDateTimeSunrise);
 
         // Checking the Sunrise datetime:
         if (upToHourDateTimeSunrise == upToHourNewLocalDateTime) {
-          var formattedSunriseDateTime = DateFormat('h:mm a').format(localDateTimeSunrise).toLowerCase();
+          var formattedSunriseDateTime = timeHelper.getFormattedDateTime(localDateTimeSunrise);
 
           // Composing the Sunrise element to insert
-          Container newtSunriseElement = Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text('$formattedSunriseDateTime'),
-                Image(
-                  image: AssetImage('images/icons8-sunrise-32.png'),
-                  width: 40,
-                ),
-                Text('Sunrise'),
-              ],
-            ),
+          Widget newSunriseElement = HorizontalHourlyElement(
+            upperText: formattedSunriseDateTime,
+            weatherIcon: AssetImage('images/icons8-sunrise-32.png'),
+            lowerText: 'Sunrise',
           );
 
-          result.add(newtSunriseElement);
+          result.add(newSunriseElement);
         }
+
+        // Sunset datetime:
+        var localDateTimeSunset = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunset);
+        DateTime upToHourDateTimeSunset = timeHelper.getTimeUpToHour(time: localDateTimeSunset);
 
         // Checking the Sunset datetime:
         if (upToHourDateTimeSunset == upToHourNewLocalDateTime) {
-          var formattedSunsetDateTime = DateFormat('h:mm a').format(localDateTimeSunset).toLowerCase();
+          var formattedSunsetDateTime = timeHelper.getFormattedDateTime(localDateTimeSunset);
 
-          // Composing the Sunset element to insert
-          Container newtSunsetElement = Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text('$formattedSunsetDateTime'),
-                Image(
-                  image: AssetImage('images/icons8-sunset-32.png'),
-                  width: 40,
-                ),
-                Text('Sunset'),
-              ],
-            ),
+          Widget newSunsetElement = HorizontalHourlyElement(
+            upperText: formattedSunsetDateTime,
+            weatherIcon: AssetImage('images/icons8-sunset-32.png'),
+            lowerText: 'Sunset',
           );
 
-          result.add(newtSunsetElement);
+          result.add(newSunsetElement);
         }
       }
     }
@@ -165,36 +136,3 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
     );
   }
 }
-
-// class HorizontalHourlyElement extends StatelessWidget {
-//   const HorizontalHourlyElement({
-//     Key key,
-//     @required this.formattedDateTime,
-//     @required this.weatherHelper,
-//     @required this.hourlyForecast,
-//     @required this.i,
-//   }) : super(key: key);
-//
-//   final String formattedDateTime;
-//   final WeatherModel weatherHelper;
-//   final dynamic hourlyForecast;
-//   final int i;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         children: [
-//           Text('$formattedDateTime'),
-//           Image(
-//             image: weatherHelper.getOpenWeatherSmallIcon(iconCode: pick(hourlyForecast[i], 'weather', 0, 'icon').asStringOrNull()),
-//             width: 40,
-//           ),
-//           Text('${pick(hourlyForecast[i], 'temp').asDoubleOrNull().toStringAsFixed(1) ?? 0} °'), // hourly[0].temp
-//         ],
-//       ),
-//     );
-//   }
-// }

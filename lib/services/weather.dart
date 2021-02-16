@@ -43,11 +43,11 @@ class WeatherModel {
   }
 
   // Gets an official OpenWeather icon image based on a given icon code:
-  NetworkImage getOpenWeatherBigIcon({String iconCode}) {
+  ImageProvider getOpenWeatherBigIcon({String iconCode}) {
     return NetworkImage('http://openweathermap.org/img/wn/$iconCode@2x.png');
   }
 
-  NetworkImage getOpenWeatherSmallIcon({String iconCode}) {
+  ImageProvider getOpenWeatherSmallIcon({String iconCode}) {
     return NetworkImage('http://openweathermap.org/img/wn/$iconCode.png');
   }
 

@@ -27,7 +27,7 @@ class HorizontalHourlyElement extends StatelessWidget {
 
   final String upperText;
   final String pop;
-  final NetworkImage weatherIcon;
+  final ImageProvider weatherIcon;
   final String lowerText;
 
   @override
