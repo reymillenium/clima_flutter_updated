@@ -79,17 +79,18 @@ class _LocationScreenState extends State<LocationScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
+      body: SingleChildScrollView(
+        // constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Center(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 // Row # 1: Current Weather Summary
-                Expanded(
-                  flex: 2,
+                SizedBox(
+                  height: 300,
                   child: ReusableCard(
                     // color: kActiveCardColor,
                     color: kNewTestingCardColor,
@@ -123,7 +124,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
 
                 // Row # 2: Horizontal Hourly
-                Expanded(
+                SizedBox(
+                  height: 150,
                   child: ReusableCard(
                     // color: kActiveCardColor,
                     color: kNewTestingCardColor,
@@ -143,7 +145,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
 
                 // Row # 3:
-                Expanded(
+                SizedBox(
+                  height: 200,
                   child: ReusableCard(
                     color: kActiveCardColor,
                     cardChild: Column(
@@ -170,7 +173,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
 
                 // Row # 4:
-                Expanded(
+                SizedBox(
+                  height: 200,
                   child: ReusableCard(
                     color: kActiveCardColor,
                     cardChild: null,
@@ -183,7 +187,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
 
                 // Row # 5:
-                Expanded(
+                SizedBox(
+                  height: 100,
                   child: ReusableCard(
                     color: kActiveCardColor,
                     cardChild: null,
