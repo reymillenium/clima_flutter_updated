@@ -86,7 +86,7 @@ class _LocationScreenState extends State<LocationScreen> {
       sunset = pick(weatherData, 'sys', 'sunset').asIntOrNull() ?? 0;
 
       // From OneCall weather data (forecast):
-      currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown'; // current.weather[0].description
+      currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown';
       hourlyForecast = pick(oneCallWeatherData, 'hourly').value;
       dailyForecast = pick(oneCallWeatherData, 'daily').value;
 

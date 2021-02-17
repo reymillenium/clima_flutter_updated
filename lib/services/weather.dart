@@ -94,7 +94,7 @@ class WeatherModel {
         backgroundColor: Colors.white,
       ),
       type: AlertType.success,
-      title: "Quizz finished",
+      title: "Error",
       desc: message,
       buttons: [
         DialogButton(
