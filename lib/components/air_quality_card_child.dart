@@ -24,7 +24,7 @@ class AirQualityCardChild extends StatelessWidget {
   final WeatherModel weatherHelper = WeatherModel();
   final TimeHelper timeHelper = TimeHelper();
 
-  final double aqi;
+  final int aqi;
 
   // Constructor:
   AirQualityCardChild({
@@ -47,10 +47,10 @@ class AirQualityCardChild extends StatelessWidget {
           ),
           Container(
             child: Text(
-              '${aqi.toInt()} - Good',
+              '$aqi - ${weatherHelper.getAQICNQualificationMessage(aqi)}',
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -68,7 +68,7 @@ class AirQualityCardChild extends StatelessWidget {
             child: Slider(
               // label: '${bmiCalculatorBrain.getHeight()}',
               // label: 'test',
-              value: aqi,
+              value: aqi.toDouble(),
               min: 1,
               max: 500,
               onChanged: (double newValue) {

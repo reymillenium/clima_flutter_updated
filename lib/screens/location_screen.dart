@@ -70,7 +70,7 @@ class _LocationScreenState extends State<LocationScreen> {
   double nh3; // Сoncentration of NH3 (Ammonia), μg/m3
 
   // From AQICN (https://aqicn.org/):
-  double aqiAQICN; // Air Quality Index
+  int aqiAQICN; // Air Quality Index
 
   @override
   void initState() {
@@ -108,7 +108,7 @@ class _LocationScreenState extends State<LocationScreen> {
       nh3 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'nh3').asDoubleOrNull(); // Сoncentration of NH3 (Ammonia), μg/m3
 
       // From AQICN (https://aqicn.org/):
-      aqiAQICN = pick(airPollutionWeatherDataAQICN, 'data', 'aqi').asDoubleOrNull(); // Air Quality Index AQICN
+      aqiAQICN = pick(airPollutionWeatherDataAQICN, 'data', 'aqi').asIntOrNull(); // Air Quality Index AQICN
       // print(aqiAQICN);
     });
   }
@@ -214,7 +214,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ),
 
-                // Row # 5:
+                // Row # 5: Extra data
                 SizedBox(
                   height: 100,
                   child: ReusableCard(
