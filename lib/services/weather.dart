@@ -65,9 +65,21 @@ class WeatherModel {
     return await network.getOneCallDataByCoordinates(lat: location.latitude, long: location.longitude);
   }
 
+  Future<dynamic> getCurrentLocationAirPollutionData() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    NetworkHelper network = NetworkHelper();
+    return await network.getCurrentPollutionDataByCoordinates(lat: location.latitude, long: location.longitude);
+  }
+
   Future<dynamic> getOneCallWeatherByCoordinates({double latitude, double longitude}) async {
     NetworkHelper network = NetworkHelper();
     return await network.getOneCallDataByCoordinates(lat: latitude, long: longitude);
+  }
+
+  Future<dynamic> getAirPollutionDataByCoordinates({double latitude, double longitude}) async {
+    NetworkHelper network = NetworkHelper();
+    return await network.getCurrentPollutionDataByCoordinates(lat: latitude, long: longitude);
   }
 
   Future<dynamic> getCityWeather({String cityName}) async {

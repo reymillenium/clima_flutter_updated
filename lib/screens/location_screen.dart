@@ -25,9 +25,14 @@ class LocationScreen extends StatefulWidget {
   // Properties:
   final locationWeatherData;
   final oneCallWeatherData;
+  final airPollutionWeatherData;
 
   // Constructor:
-  LocationScreen({this.locationWeatherData, this.oneCallWeatherData});
+  LocationScreen({
+    this.locationWeatherData,
+    this.oneCallWeatherData,
+    this.airPollutionWeatherData,
+  });
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
@@ -45,6 +50,7 @@ class _LocationScreenState extends State<LocationScreen> {
   String currentIconCode;
   int sunrise;
   int sunset;
+  int aqi;
 
   // From OneCall weather data (forecast)
   String currentDescription;
@@ -54,12 +60,12 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    updateUI(widget.locationWeatherData, widget.oneCallWeatherData);
+    updateUI(widget.locationWeatherData, widget.oneCallWeatherData, widget.airPollutionWeatherData);
   }
 
-  void updateUI(dynamic weatherData, dynamic oneCallWeatherData) {
+  void updateUI(dynamic weatherData, dynamic oneCallWeatherData, dynamic airPollutionWeatherData) {
     setState(() {
-      // From current weather data
+      // From current weather data:
       currentTemperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100;
       currentMinTemperature = pick(weatherData, 'main', 'temp_min').asDoubleOrNull() ?? -100;
       currentMaxTemperature = pick(weatherData, 'main', 'temp_max').asDoubleOrNull() ?? -100;
@@ -68,17 +74,15 @@ class _LocationScreenState extends State<LocationScreen> {
       currentIconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
       sunrise = pick(weatherData, 'sys', 'sunrise').asIntOrNull() ?? 0;
       sunset = pick(weatherData, 'sys', 'sunset').asIntOrNull() ?? 0;
-      // print('Sunrise: $sunrise');
-      // print('Sunset: $sunset');
-      // print('Sunrise2: ${pick(oneCallWeatherData, 'current', 'sunrise').asIntOrNull()}'); // current.sunrise
-      // print('Sunset2: ${pick(oneCallWeatherData, 'current', 'sunset').asIntOrNull()}'); // current.sunset
 
-      // From OneCall weather data (forecast)
+      // From OneCall weather data (forecast):
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown'; // current.weather[0].description
       hourlyForecast = pick(oneCallWeatherData, 'hourly').value;
       dailyForecast = pick(oneCallWeatherData, 'daily').value;
-      // print(pick(oneCallWeatherData, 'hourly'));
-      // print(pick(oneCallWeatherData, 'hourly').value);
+
+      // From Air Pollution weather data:
+      aqi = pick(airPollutionWeatherData, 'list', 0, 'main', 'aqi').asIntOrNull(); // list[0].main.aqi
+      // print(aqi);
     });
   }
 
@@ -108,9 +112,10 @@ class _LocationScreenState extends State<LocationScreen> {
                       currentMaxTemperature: currentMaxTemperature,
                       currentMinTemperature: currentMinTemperature,
                       onPressedTopLeft: () async {
-                        var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
                         var weatherData = await weatherHelper.getCurrentLocationCurrentWeather();
-                        updateUI(weatherData, oneCallWeatherData);
+                        var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
+                        var airPollutionWeatherData = await weatherHelper.getCurrentLocationAirPollutionData();
+                        updateUI(weatherData, oneCallWeatherData, airPollutionWeatherData);
                       },
                       onPressedTopRight: () async {
                         RoutesHelper routesHelper = RoutesHelper();
@@ -119,8 +124,9 @@ class _LocationScreenState extends State<LocationScreen> {
                         double latitude = weatherData['coord']['lat'];
                         double longitude = weatherData['coord']['lon'];
                         var oneCallWeatherData = await weatherHelper.getOneCallWeatherByCoordinates(latitude: latitude, longitude: longitude);
+                        var airPollutionWeatherData = await weatherHelper.getAirPollutionDataByCoordinates(latitude: latitude, longitude: longitude);
                         if (weatherData != null) {
-                          updateUI(weatherData, oneCallWeatherData);
+                          updateUI(weatherData, oneCallWeatherData, airPollutionWeatherData);
                         }
                       },
                     ),
