@@ -45,6 +45,16 @@ class AirQualityCardChild extends StatelessWidget {
               style: TextStyle(),
             ),
           ),
+          Container(
+            child: Text(
+              '${aqi.toInt()} - Good',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           SliderTheme(
             data: SliderThemeData(
               trackShape: GradientRectSliderTrackShape(gradient: gradient, darkenInactive: false),

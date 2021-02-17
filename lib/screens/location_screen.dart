@@ -26,12 +26,14 @@ class LocationScreen extends StatefulWidget {
   final locationWeatherData;
   final oneCallWeatherData;
   final airPollutionWeatherData;
+  final airPollutionWeatherDataAQICN;
 
   // Constructor:
   LocationScreen({
     this.locationWeatherData,
     this.oneCallWeatherData,
     this.airPollutionWeatherData,
+    this.airPollutionWeatherDataAQICN,
   });
 
   @override
@@ -57,7 +59,7 @@ class _LocationScreenState extends State<LocationScreen> {
   dynamic dailyForecast;
 
   // From Air Pollution weather data:
-  int aqi; // Air Quality Index
+  double aqi; // Air Quality Index
   double co; // Сoncentration of CO (Carbon monoxide), μg/m3
   double no; // Сoncentration of NO (Nitrogen monoxide), μg/m3
   double no2; // Сoncentration of NO2 (Nitrogen dioxide), μg/m3
@@ -67,13 +69,16 @@ class _LocationScreenState extends State<LocationScreen> {
   double pm10; // Сoncentration of PM10 (Coarse particulate matter), μg/m3
   double nh3; // Сoncentration of NH3 (Ammonia), μg/m3
 
+  // From AQICN (https://aqicn.org/):
+  double aqiAQICN; // Air Quality Index
+
   @override
   void initState() {
     super.initState();
-    updateUI(widget.locationWeatherData, widget.oneCallWeatherData, widget.airPollutionWeatherData);
+    updateUI(widget.locationWeatherData, widget.oneCallWeatherData, widget.airPollutionWeatherData, widget.airPollutionWeatherDataAQICN);
   }
 
-  void updateUI(dynamic weatherData, dynamic oneCallWeatherData, dynamic airPollutionWeatherData) {
+  void updateUI(dynamic weatherData, dynamic oneCallWeatherData, dynamic airPollutionWeatherData, dynamic airPollutionWeatherDataAQICN) {
     setState(() {
       // From current weather data:
       currentTemperature = pick(weatherData, 'main', 'temp').asDoubleOrNull() ?? -100;
@@ -91,7 +96,7 @@ class _LocationScreenState extends State<LocationScreen> {
       dailyForecast = pick(oneCallWeatherData, 'daily').value;
 
       // From Air Pollution weather data:
-      aqi = pick(airPollutionWeatherData, 'list', 0, 'main', 'aqi').asIntOrNull(); // Air Quality Index
+      aqi = pick(airPollutionWeatherData, 'list', 0, 'main', 'aqi').asDoubleOrNull(); // Air Quality Index
       // print(aqi);
       co = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'co').asDoubleOrNull(); // Сoncentration of CO (Carbon monoxide), μg/m3
       no = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'no').asDoubleOrNull(); // Сoncentration of NO (Nitrogen monoxide), μg/m3
@@ -101,6 +106,10 @@ class _LocationScreenState extends State<LocationScreen> {
       pm2_5 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'pm2_5').asDoubleOrNull(); // Сoncentration of PM2.5 (Fine particles matter), μg/m3
       pm10 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'pm10').asDoubleOrNull(); // Сoncentration of PM10 (Coarse particulate matter), μg/m3
       nh3 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'nh3').asDoubleOrNull(); // Сoncentration of NH3 (Ammonia), μg/m3
+
+      // From AQICN (https://aqicn.org/):
+      aqiAQICN = pick(airPollutionWeatherDataAQICN, 'data', 'aqi').asDoubleOrNull(); // Air Quality Index AQICN
+      // print(aqiAQICN);
     });
   }
 
@@ -133,7 +142,13 @@ class _LocationScreenState extends State<LocationScreen> {
                         var weatherData = await weatherHelper.getCurrentLocationCurrentWeather();
                         var oneCallWeatherData = await weatherHelper.getCurrentLocationOneCallWeather();
                         var airPollutionWeatherData = await weatherHelper.getCurrentLocationAirPollutionData();
-                        updateUI(weatherData, oneCallWeatherData, airPollutionWeatherData);
+                        var airPollutionWeatherDataAQICN = await WeatherModel().getCurrentLocationAirPollutionDataAQICN();
+                        updateUI(
+                          weatherData,
+                          oneCallWeatherData,
+                          airPollutionWeatherData,
+                          airPollutionWeatherDataAQICN,
+                        );
                       },
                       onPressedTopRight: () async {
                         RoutesHelper routesHelper = RoutesHelper();
@@ -143,8 +158,14 @@ class _LocationScreenState extends State<LocationScreen> {
                         double longitude = weatherData['coord']['lon'];
                         var oneCallWeatherData = await weatherHelper.getOneCallWeatherByCoordinates(latitude: latitude, longitude: longitude);
                         var airPollutionWeatherData = await weatherHelper.getAirPollutionDataByCoordinates(latitude: latitude, longitude: longitude);
+                        var airPollutionWeatherDataAQICN = await WeatherModel().getCurrentLocationAirPollutionDataAQICN();
                         if (weatherData != null) {
-                          updateUI(weatherData, oneCallWeatherData, airPollutionWeatherData);
+                          updateUI(
+                            weatherData,
+                            oneCallWeatherData,
+                            airPollutionWeatherData,
+                            airPollutionWeatherDataAQICN,
+                          );
                         }
                       },
                     ),
@@ -183,11 +204,11 @@ class _LocationScreenState extends State<LocationScreen> {
 
                 // Row # 4: Air Quality
                 SizedBox(
-                  height: 100,
+                  height: 120,
                   child: ReusableCard(
                     color: kNewTestingCardColor,
                     cardChild: AirQualityCardChild(
-                      aqi: 51,
+                      aqi: aqiAQICN,
                     ),
                     onTapEvent: null,
                   ),

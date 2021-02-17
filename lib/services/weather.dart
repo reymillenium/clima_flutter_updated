@@ -51,6 +51,7 @@ class WeatherModel {
     return NetworkImage('http://openweathermap.org/img/wn/$iconCode.png');
   }
 
+  // Current weather in current location - Open Weather (https://openweathermap.org/)
   Future<dynamic> getCurrentLocationCurrentWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
@@ -58,6 +59,13 @@ class WeatherModel {
     return await network.getCurrentDataByCoordinates(lat: location.latitude, long: location.longitude);
   }
 
+  // Current Weather per city name - Open Weather (https://openweathermap.org/)
+  Future<dynamic> getCityWeather({String cityName}) async {
+    NetworkHelper network = NetworkHelper();
+    return await network.getDataByCity(cityName: cityName);
+  }
+
+  // One Call - Open Weather (https://openweathermap.org/)
   Future<dynamic> getCurrentLocationOneCallWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
@@ -65,6 +73,12 @@ class WeatherModel {
     return await network.getOneCallDataByCoordinates(lat: location.latitude, long: location.longitude);
   }
 
+  Future<dynamic> getOneCallWeatherByCoordinates({double latitude, double longitude}) async {
+    NetworkHelper network = NetworkHelper();
+    return await network.getOneCallDataByCoordinates(lat: latitude, long: longitude);
+  }
+
+  // Air Pollution - Open Weather (https://openweathermap.org/)
   Future<dynamic> getCurrentLocationAirPollutionData() async {
     Location location = Location();
     await location.getCurrentLocation();
@@ -72,19 +86,22 @@ class WeatherModel {
     return await network.getCurrentPollutionDataByCoordinates(lat: location.latitude, long: location.longitude);
   }
 
-  Future<dynamic> getOneCallWeatherByCoordinates({double latitude, double longitude}) async {
-    NetworkHelper network = NetworkHelper();
-    return await network.getOneCallDataByCoordinates(lat: latitude, long: longitude);
-  }
-
   Future<dynamic> getAirPollutionDataByCoordinates({double latitude, double longitude}) async {
     NetworkHelper network = NetworkHelper();
     return await network.getCurrentPollutionDataByCoordinates(lat: latitude, long: longitude);
   }
 
-  Future<dynamic> getCityWeather({String cityName}) async {
+  // Air Pollution - AQICN (https://aqicn.org/)
+  Future<dynamic> getCurrentLocationAirPollutionDataAQICN() async {
+    Location location = Location();
+    await location.getCurrentLocation();
     NetworkHelper network = NetworkHelper();
-    return await network.getDataByCity(cityName: cityName);
+    return await network.getCurrentPollutionDataByCoordinatesAQICN(lat: location.latitude, long: location.longitude);
+  }
+
+  Future<dynamic> getAirPollutionDataByCoordinatesAQICN({double latitude, double longitude}) async {
+    NetworkHelper network = NetworkHelper();
+    return await network.getCurrentPollutionDataByCoordinatesAQICN(lat: latitude, long: longitude);
   }
 
   Alert createAlert(BuildContext context, String message) {

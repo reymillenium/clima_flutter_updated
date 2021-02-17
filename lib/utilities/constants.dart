@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 const openWeatherOneCallURL = 'https://api.openweathermap.org/data/2.5/onecall';
 const openWeatherAirPollutionURL = 'http://api.openweathermap.org/data/2.5/air_pollution';
+const aqicnAirPollutionURL = 'https://api.waqi.info/feed/geo';
+
+// API Keys:
 const openWeatherApiKey = '888e3a5d9c71ad9496ae5659aaf9bcc0';
+const aqicnAPIToken = 'e94b232e7c4096817da6238b3ffb1a99e44fa439';
 
 // Text Styles:
 const kTempTextStyle = TextStyle(

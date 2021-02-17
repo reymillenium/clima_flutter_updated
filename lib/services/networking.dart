@@ -31,6 +31,13 @@ class NetworkHelper {
     return await _getData(url: pollutionDataByCoordinatesURL);
   }
 
+  // Gets all the available data in one call, given a latitude and a longitude (coordinates):
+  Future getCurrentPollutionDataByCoordinatesAQICN({double lat, double long}) async {
+    String aqicnPollutionDataByCoordinatesURL = '$aqicnAirPollutionURL:$lat;$long/?token=$aqicnAPIToken';
+    // print(aqicnPollutionDataByCoordinatesURL);
+    return await _getData(url: aqicnPollutionDataByCoordinatesURL);
+  }
+
   // Gets the data given a url:
   Future<dynamic> _getData({String url}) async {
     http.Response response = await http.get(url);

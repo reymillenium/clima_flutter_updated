@@ -32,6 +32,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var weatherData = await WeatherModel().getCurrentLocationCurrentWeather();
     var oneCallWeatherData = await WeatherModel().getCurrentLocationOneCallWeather();
     var airPollutionWeatherData = await WeatherModel().getCurrentLocationAirPollutionData();
+    var airPollutionWeatherDataAQICN = await WeatherModel().getCurrentLocationAirPollutionDataAQICN();
     // print(airPollutionWeatherData);
     // await Future.delayed(const Duration(milliseconds: 500));
     RoutesHelper routesHelper = RoutesHelper();
@@ -40,6 +41,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       locationWeatherData: weatherData,
       oneCallWeatherData: oneCallWeatherData,
       airPollutionWeatherData: airPollutionWeatherData,
+      airPollutionWeatherDataAQICN: airPollutionWeatherDataAQICN,
     )));
   }
 
