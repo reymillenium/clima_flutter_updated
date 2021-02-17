@@ -11,6 +11,7 @@ import 'package:clima/components/reusable_card.dart';
 import 'package:clima/components/current_weather_summary_card.dart';
 import 'package:clima/components/horizontal_hourly_forecast_card_child.dart';
 import 'package:clima/components/daily_forecast_card_child.dart';
+import 'package:clima/components/gradient_rect_slider_track_shape.dart';
 
 // Services:
 import 'package:clima/services/weather.dart';
@@ -158,12 +159,56 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ),
 
-                // Row # 4:
+                // Row # 4: Air Quality
                 SizedBox(
-                  height: 200,
+                  height: 110,
                   child: ReusableCard(
-                    color: kActiveCardColor,
-                    cardChild: null,
+                    color: kNewTestingCardColor,
+                    cardChild: Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            // color: Colors.red,
+                            child: Text(
+                              'Air Quality',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(),
+                            ),
+                          ),
+                          SliderTheme(
+                            data: SliderThemeData(
+                              trackShape: GradientRectSliderTrackShape(gradient: gradient, darkenInactive: false),
+                              // activeTrackColor: Colors.white,
+                              // inactiveTrackColor: kLabelTextColor,
+                              thumbColor: kBottomContainerColor,
+                              overlayColor: kTranslucentBottomContainerColor,
+                              trackHeight: 6,
+                              thumbShape: RoundSliderThumbShape(
+                                enabledThumbRadius: 6,
+                              ),
+                              overlayShape: RoundSliderOverlayShape(
+                                overlayRadius: 30,
+                              ),
+                            ),
+                            child: Slider(
+                              // label: '${bmiCalculatorBrain.getHeight()}',
+                              // label: 'test',
+                              value: 51,
+                              min: 1,
+                              max: 500,
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  // bmiCalculatorBrain.setHeight(newValue.round());
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     onTapEvent: () {
                       // setState(() {
                       //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
@@ -193,3 +238,5 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+
+LinearGradient gradient = LinearGradient(colors: <Color>[Colors.green, Colors.yellow, Colors.orange, Colors.purple, Colors.red]);
