@@ -21,6 +21,10 @@ class TimeHelper {
     return DateFormat('ha').format(time).toLowerCase();
   }
 
+  String getFormattedExactDateTime(time) {
+    return DateFormat('h:mm a').format(time).toLowerCase();
+  }
+
   String getWeekDayFromDateTime(datetime) {
     return DateFormat('EEEE').format(datetime);
   }
