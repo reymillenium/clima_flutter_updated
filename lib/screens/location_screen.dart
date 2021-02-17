@@ -10,6 +10,7 @@ import 'package:clima/screens/city_screen.dart';
 import 'package:clima/components/reusable_card.dart';
 import 'package:clima/components/current_weather_summary_card.dart';
 import 'package:clima/components/horizontal_hourly_forecast_card_child.dart';
+import 'package:clima/components/daily_forecast_card_child.dart';
 
 // Services:
 import 'package:clima/services/weather.dart';
@@ -46,6 +47,7 @@ class _LocationScreenState extends State<LocationScreen> {
   // From OneCall weather data (forecast)
   String currentDescription;
   dynamic hourlyForecast;
+  dynamic dailyForecast;
 
   @override
   void initState() {
@@ -72,6 +74,7 @@ class _LocationScreenState extends State<LocationScreen> {
       // From OneCall weather data (forecast)
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown'; // current.weather[0].description
       hourlyForecast = pick(oneCallWeatherData, 'hourly').value;
+      dailyForecast = pick(oneCallWeatherData, 'daily').value;
       // print(pick(oneCallWeatherData, 'hourly'));
       // print(pick(oneCallWeatherData, 'hourly').value);
     });
@@ -90,7 +93,7 @@ class _LocationScreenState extends State<LocationScreen> {
               children: <Widget>[
                 // Row # 1: Current Weather Summary
                 SizedBox(
-                  height: 300,
+                  height: 250,
                   child: ReusableCard(
                     // color: kActiveCardColor,
                     color: kNewTestingCardColor,
@@ -144,31 +147,14 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ),
 
-                // Row # 3:
+                // Row # 3: Daily Forecast
                 SizedBox(
-                  height: 200,
+                  height: 350,
                   child: ReusableCard(
-                    color: kActiveCardColor,
-                    cardChild: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: [],
-                        ),
-                        Divider(
-                          color: Colors.white70,
-                          height: 20,
-                          thickness: 1,
-                          indent: 4,
-                          endIndent: 4,
-                        ),
-                      ],
+                    color: kNewTestingCardColor,
+                    cardChild: DailyForecastCardChild(
+                      dailyForecast: dailyForecast,
                     ),
-                    onTapEvent: () {
-                      // setState(() {
-                      //   bmiCalculatorBrain.toggleGenderCards(Gender.male);
-                      // });
-                    },
                   ),
                 ),
 

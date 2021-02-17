@@ -20,4 +20,8 @@ class TimeHelper {
     // return DateFormat('hh:mm a').format(time).toLowerCase();
     return DateFormat('ha').format(time).toLowerCase();
   }
+
+  String getWeekDayFromDateTime(datetime) {
+    return DateFormat('EEEE').format(datetime);
+  }
 }
