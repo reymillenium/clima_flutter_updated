@@ -41,7 +41,7 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   // Properties:
   WeatherModel weatherHelper = WeatherModel();
-  // From current weather data
+  // From current weather data:
   double currentTemperature;
   double currentMinTemperature;
   double currentMaxTemperature;
@@ -50,12 +50,22 @@ class _LocationScreenState extends State<LocationScreen> {
   String currentIconCode;
   int sunrise;
   int sunset;
-  int aqi;
 
-  // From OneCall weather data (forecast)
+  // From OneCall weather data (forecast):
   String currentDescription;
   dynamic hourlyForecast;
   dynamic dailyForecast;
+
+  // From Air Pollution weather data:
+  int aqi; // Air Quality Index
+  double co; // Сoncentration of CO (Carbon monoxide), μg/m3
+  double no; // Сoncentration of NO (Nitrogen monoxide), μg/m3
+  double no2; // Сoncentration of NO2 (Nitrogen dioxide), μg/m3
+  double o3; // Сoncentration of O3 (Ozone), μg/m3
+  double so2; // Сoncentration of SO2 (Sulphur dioxide), μg/m3
+  double pm2_5; // Сoncentration of PM2.5 (Fine particles matter), μg/m3
+  double pm10; // Сoncentration of PM10 (Coarse particulate matter), μg/m3
+  double nh3; // Сoncentration of NH3 (Ammonia), μg/m3
 
   @override
   void initState() {
@@ -81,8 +91,16 @@ class _LocationScreenState extends State<LocationScreen> {
       dailyForecast = pick(oneCallWeatherData, 'daily').value;
 
       // From Air Pollution weather data:
-      aqi = pick(airPollutionWeatherData, 'list', 0, 'main', 'aqi').asIntOrNull(); // list[0].main.aqi
+      aqi = pick(airPollutionWeatherData, 'list', 0, 'main', 'aqi').asIntOrNull(); // Air Quality Index
       // print(aqi);
+      co = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'co').asDoubleOrNull(); // Сoncentration of CO (Carbon monoxide), μg/m3
+      no = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'no').asDoubleOrNull(); // Сoncentration of NO (Nitrogen monoxide), μg/m3
+      no2 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'no2').asDoubleOrNull(); // Сoncentration of NO2 (Nitrogen dioxide), μg/m3
+      o3 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'o3').asDoubleOrNull(); // Сoncentration of O3 (Ozone), μg/m3
+      so2 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'so2').asDoubleOrNull(); // Сoncentration of SO2 (Sulphur dioxide), μg/m3
+      pm2_5 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'pm2_5').asDoubleOrNull(); // Сoncentration of PM2.5 (Fine particles matter), μg/m3
+      pm10 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'pm10').asDoubleOrNull(); // Сoncentration of PM10 (Coarse particulate matter), μg/m3
+      nh3 = pick(airPollutionWeatherData, 'list', 0, 'main', 'components', 'nh3').asDoubleOrNull(); // Сoncentration of NH3 (Ammonia), μg/m3
     });
   }
 
