@@ -32,6 +32,7 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
   // From OneCall weather data (forecast)
 
   final dynamic hourlyForecast;
+  final dynamic dailyForecast;
 
   // Constructor:
   HorizontalHourlyForecastCardChild({
@@ -40,6 +41,7 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
     this.sunrise,
     this.sunset,
     this.hourlyForecast,
+    this.dailyForecast,
   });
 
   List<Widget> createForecastListViewChildren() {
@@ -52,6 +54,26 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
       lowerText: currentTemperature.toStringAsFixed(1) ?? 0,
     );
     result.add(currentWeatherElement);
+
+    // Sunrise datetime # 1:
+    int sunrise1 = pick(dailyForecast[0], 'sunrise').asIntOrNull();
+    var localDateTimeSunrise1 = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunrise1);
+    DateTime upToHourDateTimeSunrise1 = timeHelper.getTimeUpToHour(time: localDateTimeSunrise1);
+
+    // Sunrise datetime # 2:
+    int sunrise2 = pick(dailyForecast[1], 'sunrise').asIntOrNull();
+    var localDateTimeSunrise2 = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunrise2);
+    DateTime upToHourDateTimeSunrise2 = timeHelper.getTimeUpToHour(time: localDateTimeSunrise2);
+
+    // Sunset datetime # 1:
+    int sunset1 = pick(dailyForecast[0], 'sunset').asIntOrNull();
+    var localDateTimeSunset1 = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunset1);
+    DateTime upToHourDateTimeSunset1 = timeHelper.getTimeUpToHour(time: localDateTimeSunset1);
+
+    // Sunset datetime # 2:
+    int sunset2 = pick(dailyForecast[1], 'sunset').asIntOrNull();
+    var localDateTimeSunset2 = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunset2);
+    DateTime upToHourDateTimeSunset2 = timeHelper.getTimeUpToHour(time: localDateTimeSunset2);
 
     // The next 24 weather elements:
     for (var i = 0; i <= 24; i++) {
@@ -76,41 +98,62 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
 
         result.add(newWeatherElement);
 
-        // Sunrise datetime:
-        var localDateTimeSunrise = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunrise);
-        DateTime upToHourDateTimeSunrise = timeHelper.getTimeUpToHour(time: localDateTimeSunrise);
-
-        // Checking the Sunrise datetime:
-        if (upToHourDateTimeSunrise == upToHourNewLocalDateTime) {
-          var formattedSunriseDateTime = timeHelper.getFormattedExactDateTime(localDateTimeSunrise);
+        // Checking the Sunrise datetime # 1:
+        if (upToHourDateTimeSunrise1 == upToHourNewLocalDateTime) {
+          var formattedSunriseDateTime1 = timeHelper.getFormattedExactDateTime(localDateTimeSunrise1);
 
           // Composing the Sunrise element to insert
-          Widget newSunriseElement = HorizontalHourlyElement(
-            upperText: formattedSunriseDateTime,
+          Widget newSunriseElement1 = HorizontalHourlyElement(
+            upperText: formattedSunriseDateTime1,
             pop: pop,
             weatherIcon: AssetImage('images/icons8-sunrise-32.png'),
             lowerText: 'Sunrise',
           );
 
-          result.add(newSunriseElement);
+          result.add(newSunriseElement1);
         }
 
-        // Sunset datetime:
-        var localDateTimeSunset = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunset);
-        DateTime upToHourDateTimeSunset = timeHelper.getTimeUpToHour(time: localDateTimeSunset);
+        // Checking the Sunrise datetime # 2:
+        if (upToHourDateTimeSunrise2 == upToHourNewLocalDateTime) {
+          var formattedSunriseDateTime2 = timeHelper.getFormattedExactDateTime(localDateTimeSunrise2);
 
-        // Checking the Sunset datetime:
-        if (upToHourDateTimeSunset == upToHourNewLocalDateTime) {
-          var formattedSunsetDateTime = timeHelper.getFormattedExactDateTime(localDateTimeSunset);
+          // Composing the Sunrise element to insert
+          Widget newSunriseElement2 = HorizontalHourlyElement(
+            upperText: formattedSunriseDateTime2,
+            pop: pop,
+            weatherIcon: AssetImage('images/icons8-sunrise-32.png'),
+            lowerText: 'Sunrise',
+          );
 
-          Widget newSunsetElement = HorizontalHourlyElement(
-            upperText: formattedSunsetDateTime,
+          result.add(newSunriseElement2);
+        }
+
+        // Checking the Sunset datetime # 1:
+        if (upToHourDateTimeSunset1 == upToHourNewLocalDateTime) {
+          var formattedSunsetDateTime1 = timeHelper.getFormattedExactDateTime(localDateTimeSunset1);
+
+          Widget newSunsetElement1 = HorizontalHourlyElement(
+            upperText: formattedSunsetDateTime1,
             pop: pop,
             weatherIcon: AssetImage('images/icons8-sunset-32.png'),
             lowerText: 'Sunset',
           );
 
-          result.add(newSunsetElement);
+          result.add(newSunsetElement1);
+        }
+
+        // Checking the Sunset datetime # 2:
+        if (upToHourDateTimeSunset2 == upToHourNewLocalDateTime) {
+          var formattedSunsetDateTime2 = timeHelper.getFormattedExactDateTime(localDateTimeSunset2);
+
+          Widget newSunsetElement2 = HorizontalHourlyElement(
+            upperText: formattedSunsetDateTime2,
+            pop: pop,
+            weatherIcon: AssetImage('images/icons8-sunset-32.png'),
+            lowerText: 'Sunset',
+          );
+
+          result.add(newSunsetElement2);
         }
       }
     }

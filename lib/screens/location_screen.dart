@@ -185,6 +185,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       sunrise: sunrise,
                       sunset: sunset,
                       hourlyForecast: hourlyForecast,
+                      dailyForecast: dailyForecast,
                     ),
                     onTapEvent: null,
                   ),
