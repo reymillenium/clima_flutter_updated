@@ -25,6 +25,8 @@ class AirQualityCardChild extends StatelessWidget {
   final TimeHelper timeHelper = TimeHelper();
 
   final int aqi;
+  static const double minValue = 1;
+  static const double maxValue = 500;
 
   // Constructor:
   AirQualityCardChild({
@@ -33,6 +35,8 @@ class AirQualityCardChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double aqiValueToSlider = (aqi > maxValue ? maxValue : aqi).toDouble();
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
       child: Column(
@@ -68,9 +72,9 @@ class AirQualityCardChild extends StatelessWidget {
             child: Slider(
               // label: '${bmiCalculatorBrain.getHeight()}',
               // label: 'test',
-              value: aqi.toDouble(),
-              min: 1,
-              max: 500,
+              value: aqiValueToSlider,
+              min: minValue,
+              max: maxValue,
               onChanged: (double newValue) {
                 // setState(() {
                 //   bmiCalculatorBrain.setHeight(newValue.round());
