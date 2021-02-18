@@ -26,8 +26,8 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
   // From current weather data
   final double currentTemperature;
   final String currentIconCode;
-  final int sunrise;
-  final int sunset;
+  // final int sunrise;
+  // final int sunset;
 
   // From OneCall weather data (forecast)
 
@@ -38,8 +38,8 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
   HorizontalHourlyForecastCardChild({
     this.currentTemperature,
     this.currentIconCode,
-    this.sunrise,
-    this.sunset,
+    // this.sunrise,
+    // this.sunset,
     this.hourlyForecast,
     this.dailyForecast,
   });
@@ -102,7 +102,6 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
         if (upToHourDateTimeSunrise1 == upToHourNewLocalDateTime) {
           var formattedSunriseDateTime1 = timeHelper.getFormattedExactDateTime(localDateTimeSunrise1);
 
-          // Composing the Sunrise element to insert
           Widget newSunriseElement1 = HorizontalHourlyElement(
             upperText: formattedSunriseDateTime1,
             pop: pop,
@@ -117,7 +116,6 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
         if (upToHourDateTimeSunrise2 == upToHourNewLocalDateTime) {
           var formattedSunriseDateTime2 = timeHelper.getFormattedExactDateTime(localDateTimeSunrise2);
 
-          // Composing the Sunrise element to insert
           Widget newSunriseElement2 = HorizontalHourlyElement(
             upperText: formattedSunriseDateTime2,
             pop: pop,

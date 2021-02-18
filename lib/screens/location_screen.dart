@@ -50,8 +50,8 @@ class _LocationScreenState extends State<LocationScreen> {
   int currentConditionNumber;
   String cityName;
   String currentIconCode;
-  int sunrise;
-  int sunset;
+  // int sunrise;
+  // int sunset;
 
   // From OneCall weather data (forecast):
   String currentDescription;
@@ -87,8 +87,8 @@ class _LocationScreenState extends State<LocationScreen> {
       currentConditionNumber = pick(weatherData, 'weather', 0, 'id').asIntOrNull() ?? 0;
       cityName = pick(weatherData, 'name').asStringOrNull() ?? 'Unknown'; // * Not included on One Call
       currentIconCode = pick(weatherData, 'weather', 0, 'icon').asStringOrNull() ?? '11n';
-      sunrise = pick(weatherData, 'sys', 'sunrise').asIntOrNull() ?? 0;
-      sunset = pick(weatherData, 'sys', 'sunset').asIntOrNull() ?? 0;
+      // sunrise = pick(weatherData, 'sys', 'sunrise').asIntOrNull() ?? 0; // The hourly report now uses the first two sunrises from the daily forecast
+      // sunset = pick(weatherData, 'sys', 'sunset').asIntOrNull() ?? 0; // The hourly report now uses the first two sunsets from the daily forecast
 
       // From OneCall weather data (forecast):
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown';
@@ -182,8 +182,8 @@ class _LocationScreenState extends State<LocationScreen> {
                     cardChild: HorizontalHourlyForecastCardChild(
                       currentIconCode: currentIconCode,
                       currentTemperature: currentTemperature,
-                      sunrise: sunrise,
-                      sunset: sunset,
+                      // sunrise: sunrise,
+                      // sunset: sunset,
                       hourlyForecast: hourlyForecast,
                       dailyForecast: dailyForecast,
                     ),
