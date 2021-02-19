@@ -6,7 +6,8 @@ This is a Weather Flutter app. It is a multi screen app with a simple functional
 
 ## Screen Shots
 
-### Home page
+### Location Screen
+![Example screenshot](https://github.com/reymillenium/images/blob/master/my_projects/15_Clima/clima_location_screen_v2.png)
 
 ***
 ## Contact
