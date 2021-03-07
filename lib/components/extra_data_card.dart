@@ -91,7 +91,7 @@ class ExtraDataCard extends StatelessWidget {
 
   TableRow createChanceOfRainHumidityTableRow() {
     double pop = pick(hourlyForecast[0], 'pop').asDoubleOrNull() ?? 0;
-    String popToShow = '$pop%';
+    String popToShow = '${(pop * 100).toInt()}%';
     int humidity = this.humidity ?? 0;
     String humidityToShow = '$humidity%';
 
