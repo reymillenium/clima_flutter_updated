@@ -57,6 +57,7 @@ class _LocationScreenState extends State<LocationScreen> {
   int humidity;
   double windSpeed;
   double feelsLike;
+  int pressure;
 
   // From OneCall weather data (forecast):
   String currentDescription;
@@ -97,6 +98,7 @@ class _LocationScreenState extends State<LocationScreen> {
       humidity = pick(weatherData, 'main', 'humidity').asIntOrNull() ?? 0;
       windSpeed = pick(weatherData, 'wind', 'speed').asDoubleOrNull() ?? 0;
       feelsLike = pick(weatherData, 'main', 'feels_like').asDoubleOrNull() ?? 0;
+      pressure = pick(weatherData, 'main', 'pressure').asIntOrNull() ?? 0;
 
       // From OneCall weather data (forecast):
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown';
@@ -234,6 +236,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       humidity: humidity,
                       windSpeed: windSpeed,
                       feelsLike: feelsLike,
+                      pressure: pressure,
                     ),
                     onTapEvent: null,
                   ),
