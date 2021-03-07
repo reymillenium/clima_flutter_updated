@@ -38,10 +38,10 @@ class ExtraDataCard extends StatelessWidget {
     List<TableRow> result = [];
 
     result.add(createSunriseSunsetTableRow());
-    result.add(createTableRow(leftLabel: 'CHANCE OF RAIN', leftValue: '10%', rightLabel: 'HUMIDITY', rightValue: '78%'));
-    result.add(createTableRow(leftLabel: 'WIND', leftValue: 'n 7 mph', rightLabel: 'FEELS LIKE', rightValue: '66 °'));
-    result.add(createTableRow(leftLabel: 'PRECIPITATION', leftValue: '0.5 in', rightLabel: 'PRESSURE', rightValue: '29.95 inHg'));
-    result.add(createTableRow(leftLabel: 'VISIBILITY', leftValue: '10 mi', rightLabel: 'UV INDEX', rightValue: '0'));
+    result.add(createChanceOfRainHumidityTableRow());
+    result.add(createWindFeelsLikeTableRow());
+    result.add(createPrecipitationPressureTableRow());
+    result.add(createVisibilityUvIndexTableRow());
 
     return result;
   }
@@ -79,6 +79,22 @@ class ExtraDataCard extends StatelessWidget {
     }
 
     return createTableRow(leftLabel: 'SUNRISE', leftValue: leftValue, rightLabel: 'SUNSET', rightValue: rightValue);
+  }
+
+  TableRow createChanceOfRainHumidityTableRow() {
+    return createTableRow(leftLabel: 'CHANCE OF RAIN', leftValue: '10%', rightLabel: 'HUMIDITY', rightValue: '78%');
+  }
+
+  TableRow createWindFeelsLikeTableRow() {
+    return createTableRow(leftLabel: 'WIND', leftValue: 'n 7 mph', rightLabel: 'FEELS LIKE', rightValue: '66 °');
+  }
+
+  TableRow createPrecipitationPressureTableRow() {
+    return createTableRow(leftLabel: 'PRECIPITATION', leftValue: '0.5 in', rightLabel: 'PRESSURE', rightValue: '29.95 inHg');
+  }
+
+  TableRow createVisibilityUvIndexTableRow() {
+    return createTableRow(leftLabel: 'VISIBILITY', leftValue: '10 mi', rightLabel: 'UV INDEX', rightValue: '0');
   }
 
   TableRow createTableRow({String leftLabel, leftValue, rightLabel, rightValue}) {
