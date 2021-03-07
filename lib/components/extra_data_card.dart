@@ -20,9 +20,87 @@ import 'package:clima/services/time.dart';
 import 'package:clima/utilities/constants.dart';
 
 class ExtraDataCard extends StatelessWidget {
-  const ExtraDataCard({
-    Key key,
-  }) : super(key: key);
+  // Helpers:
+  // final WeatherModel weatherHelper = WeatherModel();
+  final TimeHelper timeHelper = TimeHelper();
+
+  // Properties:
+  // From OneCall weather data (forecast)
+  final dynamic hourlyForecast;
+  final dynamic dailyForecast;
+
+  ExtraDataCard({
+    this.hourlyForecast,
+    this.dailyForecast,
+  });
+
+  List<TableRow> generateExtraDataTableRows() {
+    List<TableRow> result = [];
+
+    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
+    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
+    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
+    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
+    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
+    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
+
+    return result;
+  }
+
+  TableRow createTableRow({String leftLabel, leftValue, rightLabel, rightValue}) {
+    return TableRow(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              leftLabel,
+              textAlign: TextAlign.left,
+              style: TextStyle(),
+            ),
+            Text(
+              leftValue,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              rightLabel,
+              textAlign: TextAlign.left,
+              style: TextStyle(),
+            ),
+            Text(
+              rightValue,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,112 +117,7 @@ class ExtraDataCard extends StatelessWidget {
           ),
         ),
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: [
-          TableRow(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    'SUNRISE',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(),
-                  ),
-                  Text(
-                    '6:38am',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    'SUNRISE',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(),
-                  ),
-                  Text(
-                    '6:38am',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          TableRow(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    'SUNRISE',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(),
-                  ),
-                  Text(
-                    '6:38am',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    'SUNRISE',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(),
-                  ),
-                  Text(
-                    '6:38am',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+        children: generateExtraDataTableRows(),
       ),
     );
   }

@@ -222,7 +222,10 @@ class _LocationScreenState extends State<LocationScreen> {
                   height: 400,
                   child: ReusableCard(
                     color: kNewTestingCardColor,
-                    cardChild: ExtraDataCard(),
+                    cardChild: ExtraDataCard(
+                      hourlyForecast: hourlyForecast,
+                      dailyForecast: dailyForecast,
+                    ),
                     onTapEvent: null,
                   ),
                 ),
