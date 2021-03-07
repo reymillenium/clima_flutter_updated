@@ -32,6 +32,8 @@ class ExtraDataCard extends StatelessWidget {
   final int pressure;
   final int visibility;
 
+  final double precipitation;
+
   // From OneCall weather data (forecast)
   final dynamic hourlyForecast;
   final dynamic dailyForecast;
@@ -46,6 +48,7 @@ class ExtraDataCard extends StatelessWidget {
     this.pressure,
     this.visibility,
     this.uvi,
+    this.precipitation,
   });
 
   List<TableRow> generateExtraDataTableRows() {
@@ -113,7 +116,8 @@ class ExtraDataCard extends StatelessWidget {
   }
 
   TableRow createPrecipitationPressureTableRow() {
-    String precipitationToShow = '0.5 in';
+    double precipitation = this.precipitation ?? 0;
+    String precipitationToShow = '$precipitation mm';
     int pressure = this.pressure;
     String pressureToShow = '$pressure hPa';
 
