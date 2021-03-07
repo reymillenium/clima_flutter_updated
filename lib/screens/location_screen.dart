@@ -13,6 +13,7 @@ import 'package:clima/components/horizontal_hourly_forecast_card_child.dart';
 import 'package:clima/components/daily_forecast_card_child.dart';
 import 'package:clima/components/gradient_rect_slider_track_shape.dart';
 import 'package:clima/components/air_quality_card_child.dart';
+import 'package:clima/components/extra_data_card.dart';
 
 // Services:
 import 'package:clima/services/weather.dart';
@@ -221,127 +222,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   height: 400,
                   child: ReusableCard(
                     color: kNewTestingCardColor,
-                    cardChild: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Table(
-                        border: TableBorder(
-                          bottom: BorderSide(
-                            color: Colors.white,
-                            width: 1,
-                          ),
-                          horizontalInside: BorderSide(
-                            color: Colors.white,
-                          ),
-                        ),
-                        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                        children: [
-                          TableRow(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Text(
-                                    'SUNRISE',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(),
-                                  ),
-                                  Text(
-                                    '6:38am',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Text(
-                                    'SUNRISE',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(),
-                                  ),
-                                  Text(
-                                    '6:38am',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Text(
-                                    'SUNRISE',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(),
-                                  ),
-                                  Text(
-                                    '6:38am',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Text(
-                                    'SUNRISE',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(),
-                                  ),
-                                  Text(
-                                    '6:38am',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    cardChild: ExtraDataCard(),
                     onTapEvent: null,
                   ),
                 ),
