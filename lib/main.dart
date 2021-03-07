@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.purple,
           )),
       home: LoadingScreen(title: 'Clima'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
