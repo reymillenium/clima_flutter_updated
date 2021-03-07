@@ -58,11 +58,11 @@ class HorizontalHourlyForecastCardChild extends StatelessWidget {
     // Sunrise datetime:
     var localDateTimeSunrise = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunrise);
     DateTime upToHourDateTimeSunrise = timeHelper.getTimeUpToHour(time: localDateTimeSunrise);
-    print(localDateTimeSunrise);
+    // print(localDateTimeSunrise);
     // Sunset datetime:
     var localDateTimeSunset = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunset);
     DateTime upToHourDateTimeSunset = timeHelper.getTimeUpToHour(time: localDateTimeSunset);
-    print(localDateTimeSunset);
+    // print(localDateTimeSunset);
 
     // Sunrise datetime # 1:
     int sunrise1 = pick(dailyForecast[0], 'sunrise').asIntOrNull();

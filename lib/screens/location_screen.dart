@@ -43,6 +43,7 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   // Properties:
   WeatherModel weatherHelper = WeatherModel();
+
   // From current weather data:
   double currentTemperature;
   double currentMinTemperature;
@@ -217,10 +218,130 @@ class _LocationScreenState extends State<LocationScreen> {
 
                 // Row # 5: Extra data
                 SizedBox(
-                  height: 100,
+                  height: 400,
                   child: ReusableCard(
-                    color: kActiveCardColor,
-                    cardChild: null,
+                    color: kNewTestingCardColor,
+                    cardChild: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: Table(
+                        border: TableBorder(
+                          bottom: BorderSide(
+                            color: Colors.white,
+                            width: 1,
+                          ),
+                          horizontalInside: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                        children: [
+                          TableRow(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    'SUNRISE',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(),
+                                  ),
+                                  Text(
+                                    '6:38am',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    'SUNRISE',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(),
+                                  ),
+                                  Text(
+                                    '6:38am',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    'SUNRISE',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(),
+                                  ),
+                                  Text(
+                                    '6:38am',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Text(
+                                    'SUNRISE',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(),
+                                  ),
+                                  Text(
+                                    '6:38am',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     onTapEvent: null,
                   ),
                 ),
