@@ -2,6 +2,16 @@
 import 'package:intl/intl.dart';
 
 class TimeHelper {
+  DateTime getCurrentTime() {
+    DateTime now = new DateTime.now();
+    return now;
+  }
+
+  DateTime getCurrentLocalTime() {
+    DateTime now = new DateTime.now().toLocal();
+    return now;
+  }
+
   DateTime getLocalTimeFromSecondsSinceEpoch(timeSinceEpochInSec) {
     final dateUtc = DateTime.fromMillisecondsSinceEpoch(timeSinceEpochInSec * 1000, isUtc: true);
     return dateUtc.toLocal();

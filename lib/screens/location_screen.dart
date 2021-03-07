@@ -219,7 +219,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
                 // Row # 5: Extra data
                 SizedBox(
-                  height: 400,
+                  height: 360,
                   child: ReusableCard(
                     color: kNewTestingCardColor,
                     cardChild: ExtraDataCard(

@@ -37,14 +37,48 @@ class ExtraDataCard extends StatelessWidget {
   List<TableRow> generateExtraDataTableRows() {
     List<TableRow> result = [];
 
-    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
-    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
-    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
-    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
-    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
-    result.add(createTableRow(leftLabel: 'SUNRISE', leftValue: '6:38am', rightLabel: 'SUNSET', rightValue: '6:26pm'));
+    result.add(createSunriseSunsetTableRow());
+    result.add(createTableRow(leftLabel: 'CHANCE OF RAIN', leftValue: '10%', rightLabel: 'HUMIDITY', rightValue: '78%'));
+    result.add(createTableRow(leftLabel: 'WIND', leftValue: 'n 7 mph', rightLabel: 'FEELS LIKE', rightValue: '66 °'));
+    result.add(createTableRow(leftLabel: 'PRECIPITATION', leftValue: '0.5 in', rightLabel: 'PRESSURE', rightValue: '29.95 inHg'));
+    result.add(createTableRow(leftLabel: 'VISIBILITY', leftValue: '10 mi', rightLabel: 'UV INDEX', rightValue: '0'));
 
     return result;
+  }
+
+  TableRow createSunriseSunsetTableRow() {
+    String leftValue = '6:12am';
+    String rightValue = '6:12pm';
+    // var currentTime = timeHelper.getCurrentTime();
+    var currentLocalTime = timeHelper.getCurrentLocalTime();
+    // print('currentTime: $currentTime');
+    // print('currentLocalTime: $currentLocalTime');
+
+    // Gets the next Sunset datetime:
+    for (int i = 0; i <= dailyForecast.length; i++) {
+      int sunset = pick(dailyForecast[i], 'sunset').asIntOrNull();
+      var localDateTimeSunset = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunset);
+
+      // print('i = $i');
+      if (localDateTimeSunset.isAfter(currentLocalTime)) {
+        leftValue = timeHelper.getFormattedExactDateTime(localDateTimeSunset);
+        break;
+      }
+    }
+
+    // Gets the next Sunrise datetime:
+    for (int j = 0; j <= dailyForecast.length; j++) {
+      int sunrise = pick(dailyForecast[j], 'sunrise').asIntOrNull();
+      var localDateTimeSunrise = timeHelper.getLocalTimeFromSecondsSinceEpoch(sunrise);
+
+      // print('j = $j');
+      if (localDateTimeSunrise.isAfter(currentLocalTime)) {
+        rightValue = timeHelper.getFormattedExactDateTime(localDateTimeSunrise);
+        break;
+      }
+    }
+
+    return createTableRow(leftLabel: 'SUNRISE', leftValue: leftValue, rightLabel: 'SUNSET', rightValue: rightValue);
   }
 
   TableRow createTableRow({String leftLabel, leftValue, rightLabel, rightValue}) {
