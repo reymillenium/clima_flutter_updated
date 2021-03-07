@@ -30,10 +30,12 @@ class ExtraDataCard extends StatelessWidget {
   final double windSpeed;
   final double feelsLike;
   final int pressure;
+  final int visibility;
 
   // From OneCall weather data (forecast)
   final dynamic hourlyForecast;
   final dynamic dailyForecast;
+  final double uvi;
 
   ExtraDataCard({
     this.hourlyForecast,
@@ -42,6 +44,8 @@ class ExtraDataCard extends StatelessWidget {
     this.windSpeed,
     this.feelsLike,
     this.pressure,
+    this.visibility,
+    this.uvi,
   });
 
   List<TableRow> generateExtraDataTableRows() {
@@ -117,10 +121,12 @@ class ExtraDataCard extends StatelessWidget {
   }
 
   TableRow createVisibilityUvIndexTableRow() {
-    String leftValue = '10 mi';
-    String rightValue = '0';
+    int visibility = this.visibility ?? 0;
+    String visibilityToShow = '${(visibility / 1000).toStringAsFixed(1)} km';
+    double uvi = this.uvi ?? 0;
+    String uviToShow = '$uvi';
 
-    return createTableRow(leftLabel: 'VISIBILITY', leftValue: leftValue, rightLabel: 'UV INDEX', rightValue: rightValue);
+    return createTableRow(leftLabel: 'VISIBILITY', leftValue: visibilityToShow, rightLabel: 'UV INDEX', rightValue: uviToShow);
   }
 
   TableRow createTableRow({String leftLabel, leftValue, rightLabel, rightValue}) {

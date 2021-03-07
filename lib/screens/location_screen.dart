@@ -58,11 +58,13 @@ class _LocationScreenState extends State<LocationScreen> {
   double windSpeed;
   double feelsLike;
   int pressure;
+  int visibility;
 
   // From OneCall weather data (forecast):
   String currentDescription;
   dynamic hourlyForecast;
   dynamic dailyForecast;
+  double uvi;
 
   // From Air Pollution weather data:
   double aqi; // Air Quality Index
@@ -99,11 +101,13 @@ class _LocationScreenState extends State<LocationScreen> {
       windSpeed = pick(weatherData, 'wind', 'speed').asDoubleOrNull() ?? 0;
       feelsLike = pick(weatherData, 'main', 'feels_like').asDoubleOrNull() ?? 0;
       pressure = pick(weatherData, 'main', 'pressure').asIntOrNull() ?? 0;
+      visibility = pick(weatherData, 'visibility').asIntOrNull() ?? 0;
 
       // From OneCall weather data (forecast):
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown';
       hourlyForecast = pick(oneCallWeatherData, 'hourly').value;
       dailyForecast = pick(oneCallWeatherData, 'daily').value;
+      uvi = pick(oneCallWeatherData, 'current', 'uvi').asDoubleOrNull() ?? 0;
 
       // From Air Pollution weather data:
       aqi = pick(airPollutionWeatherData, 'list', 0, 'main', 'aqi').asDoubleOrNull(); // Air Quality Index
@@ -237,6 +241,8 @@ class _LocationScreenState extends State<LocationScreen> {
                       windSpeed: windSpeed,
                       feelsLike: feelsLike,
                       pressure: pressure,
+                      visibility: visibility,
+                      uvi: uvi,
                     ),
                     onTapEvent: null,
                   ),
