@@ -25,6 +25,9 @@ class ExtraDataCard extends StatelessWidget {
   final TimeHelper timeHelper = TimeHelper();
 
   // Properties:
+  // From local weather forecast:
+  final int humidity;
+
   // From OneCall weather data (forecast)
   final dynamic hourlyForecast;
   final dynamic dailyForecast;
@@ -32,6 +35,7 @@ class ExtraDataCard extends StatelessWidget {
   ExtraDataCard({
     this.hourlyForecast,
     this.dailyForecast,
+    this.humidity,
   });
 
   List<TableRow> generateExtraDataTableRows() {
@@ -82,10 +86,10 @@ class ExtraDataCard extends StatelessWidget {
   }
 
   TableRow createChanceOfRainHumidityTableRow() {
-    String leftValue = '10%';
-    String rightValue = '78%';
+    double pop = pick(hourlyForecast[0], 'pop').asDoubleOrNull() ?? 0;
+    int humidity = this.humidity ?? 0;
 
-    return createTableRow(leftLabel: 'CHANCE OF RAIN', leftValue: leftValue, rightLabel: 'HUMIDITY', rightValue: rightValue);
+    return createTableRow(leftLabel: 'CHANCE OF RAIN', leftValue: '$pop%', rightLabel: 'HUMIDITY', rightValue: '$humidity%');
   }
 
   TableRow createWindFeelsLikeTableRow() {
