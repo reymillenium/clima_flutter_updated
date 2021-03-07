@@ -27,6 +27,8 @@ class ExtraDataCard extends StatelessWidget {
   // Properties:
   // From local weather forecast:
   final int humidity;
+  final double windSpeed;
+  final double feelsLike;
 
   // From OneCall weather data (forecast)
   final dynamic hourlyForecast;
@@ -36,6 +38,8 @@ class ExtraDataCard extends StatelessWidget {
     this.hourlyForecast,
     this.dailyForecast,
     this.humidity,
+    this.windSpeed,
+    this.feelsLike,
   });
 
   List<TableRow> generateExtraDataTableRows() {
@@ -51,8 +55,8 @@ class ExtraDataCard extends StatelessWidget {
   }
 
   TableRow createSunriseSunsetTableRow() {
-    String leftValue = '6:12am';
-    String rightValue = '6:12pm';
+    String sunsetToShow = '';
+    String sunriseToShow = '';
     // var currentTime = timeHelper.getCurrentTime();
     var currentLocalTime = timeHelper.getCurrentLocalTime();
     // print('currentTime: $currentTime');
@@ -65,7 +69,7 @@ class ExtraDataCard extends StatelessWidget {
 
       // print('i = $i');
       if (localDateTimeSunset.isAfter(currentLocalTime)) {
-        leftValue = timeHelper.getFormattedExactDateTime(localDateTimeSunset);
+        sunsetToShow = timeHelper.getFormattedExactDateTime(localDateTimeSunset);
         break;
       }
     }
@@ -77,26 +81,29 @@ class ExtraDataCard extends StatelessWidget {
 
       // print('j = $j');
       if (localDateTimeSunrise.isAfter(currentLocalTime)) {
-        rightValue = timeHelper.getFormattedExactDateTime(localDateTimeSunrise);
+        sunriseToShow = timeHelper.getFormattedExactDateTime(localDateTimeSunrise);
         break;
       }
     }
 
-    return createTableRow(leftLabel: 'SUNRISE', leftValue: leftValue, rightLabel: 'SUNSET', rightValue: rightValue);
+    return createTableRow(leftLabel: 'SUNRISE', leftValue: sunriseToShow, rightLabel: 'SUNSET', rightValue: sunsetToShow);
   }
 
   TableRow createChanceOfRainHumidityTableRow() {
     double pop = pick(hourlyForecast[0], 'pop').asDoubleOrNull() ?? 0;
+    String popToShow = '$pop%';
     int humidity = this.humidity ?? 0;
+    String humidityToShow = '$humidity%';
 
-    return createTableRow(leftLabel: 'CHANCE OF RAIN', leftValue: '$pop%', rightLabel: 'HUMIDITY', rightValue: '$humidity%');
+    return createTableRow(leftLabel: 'CHANCE OF RAIN', leftValue: popToShow, rightLabel: 'HUMIDITY', rightValue: humidityToShow);
   }
 
   TableRow createWindFeelsLikeTableRow() {
-    String leftValue = 'n 7 mph';
-    String rightValue = '66 °';
-
-    return createTableRow(leftLabel: 'WIND', leftValue: leftValue, rightLabel: 'FEELS LIKE', rightValue: rightValue);
+    double windSpeed = this.windSpeed ?? 0;
+    String windSpeedToShow = '$windSpeed m/s';
+    double feelsLike = this.feelsLike ?? 0;
+    String feelsLikeToShow = '${feelsLike.toStringAsFixed(1)}°';
+    return createTableRow(leftLabel: 'WIND', leftValue: windSpeedToShow, rightLabel: 'FEELS LIKE', rightValue: feelsLikeToShow);
   }
 
   TableRow createPrecipitationPressureTableRow() {

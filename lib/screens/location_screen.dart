@@ -55,6 +55,8 @@ class _LocationScreenState extends State<LocationScreen> {
   int sunrise;
   int sunset;
   int humidity;
+  double windSpeed;
+  double feelsLike;
 
   // From OneCall weather data (forecast):
   String currentDescription;
@@ -93,6 +95,8 @@ class _LocationScreenState extends State<LocationScreen> {
       sunrise = pick(weatherData, 'sys', 'sunrise').asIntOrNull() ?? 0; // The hourly report now uses the first two sunrises from the daily forecast
       sunset = pick(weatherData, 'sys', 'sunset').asIntOrNull() ?? 0; // The hourly report now uses the first two sunsets from the daily forecast
       humidity = pick(weatherData, 'main', 'humidity').asIntOrNull() ?? 0;
+      windSpeed = pick(weatherData, 'wind', 'speed').asDoubleOrNull() ?? 0;
+      feelsLike = pick(weatherData, 'main', 'feels_like').asDoubleOrNull() ?? 0;
 
       // From OneCall weather data (forecast):
       currentDescription = pick(oneCallWeatherData, 'current', 'weather', 0, 'description').asStringOrNull() ?? 'unknown';
@@ -228,6 +232,8 @@ class _LocationScreenState extends State<LocationScreen> {
                       hourlyForecast: hourlyForecast,
                       dailyForecast: dailyForecast,
                       humidity: humidity,
+                      windSpeed: windSpeed,
+                      feelsLike: feelsLike,
                     ),
                     onTapEvent: null,
                   ),
